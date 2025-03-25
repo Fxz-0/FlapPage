@@ -9,7 +9,7 @@ h1{
     position: absolute;
     display: flex;
     text-align: center;
-    font-size: 3.5rem;
+    font-size: 3rem;
     color: white;
     text-shadow: 4px 4px 6px rgb(0, 0, 0);
 }
