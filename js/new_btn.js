@@ -103,11 +103,15 @@ Gana x2 (4000)
 No pasa nada
 No pasa nada`;
         document.getElementById('ListaElementos').value = options1;
+        let txtListaElementos = $('#ListaElementos').val().trim();
+        let Elementos = txtListaElementos.split('\n');
+        
         for (let i = Elementos.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             [Elementos[i], Elementos[j]] = [Elementos[j], Elementos[i]];
         }
         $('#ListaElementos').val(Elementos.join('\n'));
+
         leerElementos();
     }
 
@@ -218,11 +222,15 @@ NO BASHEASTE
 NO BASHEASTE
 BASH`;
         document.getElementById('ListaElementos').value = options2;
+        let txtListaElementos = $('#ListaElementos').val().trim();
+        let Elementos = txtListaElementos.split('\n');
+        
         for (let i = Elementos.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             [Elementos[i], Elementos[j]] = [Elementos[j], Elementos[i]];
         }
         $('#ListaElementos').val(Elementos.join('\n'));
+
         leerElementos();
     }
 
@@ -292,7 +300,10 @@ balde de KFC
 100 soles
 BAN (1 dia)`;
         document.getElementById('ListaElementos').value = options3;
-                for (let i = Elementos.length - 1; i > 0; i--) {
+        let txtListaElementos = $('#ListaElementos').val().trim();
+        let Elementos = txtListaElementos.split('\n');
+        
+        for (let i = Elementos.length - 1; i > 0; i--) {
             let j = Math.floor(Math.random() * (i + 1));
             [Elementos[i], Elementos[j]] = [Elementos[j], Elementos[i]];
         }
