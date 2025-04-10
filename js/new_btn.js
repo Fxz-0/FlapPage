@@ -215,3 +215,72 @@ BASH`;
         document.getElementById('ListaElementos').value = options2;
         leerElementos();
     }
+
+function RulettesubsOpcion() {
+        const options3 =
+`1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+4000 puntos
+4000 puntos
+desayuno en Tambo
+desayuno en Tambo
+desayuno en Tambo
+5 soles
+5 soles
+5 soles
+5 soles
+5 soles
+5 soles
+tu menú
+tu menú 
+10 soles
+10 soles
+10 soles
+10 soles
+entrada Valetodo
+balde de KFC
+50 soles
+50 soles
+50 soles
+100 soles
+100 soles
+BAN (1 dia)`;
+        document.getElementById('ListaElementos').value = options3;
+        leerElementos();
+    }
