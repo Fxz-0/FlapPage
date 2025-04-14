@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Notable&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/sheet_styles.css">
-    <link rel="icon" type="image/x-icon" href="img/iconos/logo-skull.ico">
+    <link rel="icon" type="image/x-icon" href="../img/iconos/logo-skull.ico">
+    <script src="../js/components.js"></script>
     <title>Flap - Playlist</title>
 </head>
 <body>
     <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-
-    <div class="sidebar" id="sidebar">
-        <a href="index.html" class="nav-link">Inicio</a>
-        <a href="ruleta.html" class="nav-link">Ruleta</a>
+    <lateralbar-a></lateralbar-a>
+    <!--<div class="sidebar" id="sidebar">
+        <a href="/FlapPage/" class="nav-link">Inicio</a>
+        <a href="/FlapPage/Ruleta" class="nav-link">Ruleta</a>
         <a href="https://discord.gg/euf5vbppCC" class="nav-link">Discord</a>
 
         <div class="social-section">
@@ -58,7 +60,7 @@
             </div></a>
         </div>
     </div>
-    </div>
+    </div>!-->
     <div class="main-content" id="main">
     <h1 class="playlist">Playlist Spotify - Flapjack :)</h1>
     <div class="playlist-container">
@@ -108,10 +110,10 @@
         </a>
     </div>
     </div>
-    <script>
+    <!--<script>
         function toggleSidebar() {
             document.getElementById("sidebar").classList.toggle("active");
             document.getElementById("main").classList.toggle("shifted");
         }
-    </script>
+    </script>-->
 </body>

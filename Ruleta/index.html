@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>FlapRoulette</title>
+	<script src="../js/Winwheel.min.js"></script>
+	<script src="../js/TweenMax.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="../js/new_btn.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <script src="../js/sweetalert.min.js"></script>
+    <link href="../css/sweetalert.css" rel="stylesheet" />   
+<meta name="viewport" content="width=device-width, initial-scale=0.5">
+<meta property="og:url"                content="https://oscaruhp.github.io/Laruleta/" />
+<meta property="og:type"               content="article" />
+<meta property="og:title"              content="La ruleta (Rifa cosas)" />
+<meta property="og:description"        content="Con esta ruleta online puedes rifar lo que gustes, solo llena la lista y genera tu ruleta" />
+<meta property="og:image"              content="https://oscaruhp.github.io/Laruleta/img/ruleta.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
+<link rel="icon" type="image/x-icon" href="../img/iconos/logo-skull.ico">
+</head>
+<body class="elemento">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="sidebar" id="sidebar">
+        <a href="/FlapPage/" class="nav-link">Inicio</a>
+        <a href="/FlapPage/Playlist/" class="nav-link">Playlist</a>
+        <a href="https://discord.gg/euf5vbppCC" class="nav-link">Discord</a>
+
+        <div class="social-section">
+            <h3 class="section">Redes</h3>
+            <a href="https://www.instagram.com/flapjackdota/" target="_blank" title="Kick">
+            <div class="social-item">
+                <div class="social-icon"><img src="img/iconos/Instagram_w.png"alt="Instagram" class="social-icon"></div>
+                <h3 class="social-text">Instagram</h3>
+            </div>
+            </a>
+            <a href="https://www.facebook.com/FlapjackDotA/">
+            <div class="social-item">
+                <div class="social-icon"><img src="img/iconos/facebook_w.png"alt="Facebook" class="social-icon"></div>
+                <h3 class="social-text">Facebook</h3>
+            </div></a>
+            <a href="https://www.tiktok.com/@flapjackdota">
+            <div class="social-item">
+                <div class="social-icon"><img src="img/iconos/tik-tok_w.png"alt="TikTok" class="social-icon"></div>
+                <h3 class="social-text">TikTok</h3>
+            </div></a>
+            <a href="https://www.youtube.com/@FlapjackDota">
+            <div class="social-item">
+                <div class="social-icon"><img src="img/iconos/Youtube_w.png"alt="YouTube" class="social-icon"></div>
+                <h3 class="social-text">YouTube</h3>
+            </div></a>
+            <a href="https://kick.com/flapjackdota">
+            <div class="social-item">
+                <div class="social-icon"><img src="img/iconos/kick_w.png"alt="Kick" class="social-icon"></div>
+                <h3 class="social-text">Kick</h3>
+            </div></a>
+            <a href="https://www.twitch.tv/flapjackdota">
+            <div class="social-item">
+                <div class="social-icon"><img src="img/iconos/twitch_w.png"alt="Twitch" class="social-icon"></div>
+                <h3 class="social-text">Twitch</h3>
+            </div></a>
+            <a href="https://x.com/flapjackdota">
+            <div class="social-item">
+                <div class="social-icon"><img src="img/iconos/x_w.png"alt="X" class="social-icon"></div>
+                <h3 class="social-text">X</h3>
+            </div></a>
+        </div>
+    </div>
+    <div class="main-content" id="main">
+    <form id="form1" runat="server">
+<div style="justify-content: center; width: 100%; height: 100%;">
+    <h1> ¡¡ LA FERIA DE FLAPJACK !!</h1>
+</div>
+<div>
+    <div>
+        <style>
+         #canvasContainer {
+            background-image: url(img/Muerte.png);
+            background-repeat: no-repeat;  
+            background-position: center;
+            background-size: 1px; 
+            width: 13rem;                  
+            height: 13rem;
+			cursor:pointer; 
+            font-family: "Faculty Glyphic", sans-serif;
+            padding-left: 4rem;
+            align-content: center;
+            margin-top: -2rem;
+        }
+        .elemento {
+            overflow-y: scroll; 
+            overflow-x: hidden; 
+            }
+        </style>
+
+        <div class="container-fluid" style="margin-top: 8rem;margin-left: 2rem; margin-right: 5rem;">
+
+            <div class="row">
+                <div class="col-3 text-center">  
+                    <br />
+                    <div class="card bg-warning"style="max-width: 600px; width:350px">
+  <div class="card-body">
+                <h4 class="card-title">Lista de elementos:</h4>  
+                    <textarea id="ListaElementos" class="form-control" rows="13">
+Opcion 1
+Opcion 2
+Opcion 3
+Opcion 4
+Opcion 5
+	  </textarea>
+<br />
+                <!--input type="button" onclick="leerElementos()" class="btn btn-warning btn-lg btn-block" value="Generar"/-->
+                <input type="button" onclick="mezclarElementos()" class="btn btn-danger btn-lg btn-block" value="Mezclar " />
+                <input id="bigButton" class="btn-block btn-lg btn btn-success " onclick="objRuleta.startAnimation(); this.disabled=true;" value="Girar" type="button"/><br />
+                <img src="img/OgreMagi.webp" alt="Button 1" class="img-button" onclick="BaraOpcions()" style="cursor: pointer; width: 80px; margin: 20px 0px 10px 0px;">
+                <img src="img/BarathrumSquare.webp" alt="Button 2" class="img-button" onclick="MulticastOpcion()" style="cursor: pointer; width: 80px; margin:20px 10px 10px 10px;">
+                <img src="img/image_2025-04-09_191452607.webp" alt="Button 3" class="img-button" onclick="RulettesubsOpcion()" style="cursor: pointer; width: 80px; margin:20px 0px 10px 0px;">
+            </div>
+        </div>  
+    </div>
+    <div class="col-7 text-center">
+				<br/>
+                    <!--input id="bigButton" class="btn-block btn-lg btn btn-success " onclick="objRuleta.startAnimation(); this.disabled=true;" value="Girar" type="button"/-->
+        <div id="canvasContainer" onclick="objRuleta.startAnimation();bigButton.disabled = true;">
+        <canvas id='Ruleta' width='700' height='700'>   
+                Canvas not supported, use another browser.
+            </canvas>  
+        </div>
+    </div>
+               
+            </div>
+            </div>
+     <script>
+         var objRuleta;
+         var winningSegment;
+         var distnaciaX = 150;
+         var distnaciaY = 50;
+         var ctx ;
+         function Mensaje() {
+             winningSegment = objRuleta.getIndicatedSegment();
+			 SonidoFinal();
+             swal({
+                title:"GANASTE" ,
+                text:" ¡ "+winningSegment.text+" !" ,
+                imageUrl: "img/rat-rainbow.gif",
+                showCancelButton: true,
+                confirmButtonColor: "#6f1acf",
+                confirmButtonText: "Aceptar",
+                cancelButtonText: "Quitar Opcion",
+                closeOnConfirm: true,
+                closeOnCancel: true
+            },
+      function (isConfirm) {
+          if (isConfirm) {
+             
+          } else {
+              $('#ListaElementos').val($('#ListaElementos').val().replace(winningSegment.text,""));
+              leerElementos();  
+          }
+          objRuleta.stopAnimation(false);
+          objRuleta.rotationAngle = 0;
+          objRuleta.draw();
+          DibujarTriangulo();
+          bigButton.disabled = false;
+      });
+
+      }
+
+         function DibujarTriangulo() {
+             distnaciaX = 150;
+             distnaciaY = 50;
+             ctx = objRuleta.ctx;
+             ctx.strokeStyle = '#fffedf';
+             ctx.fillStyle = '#000000';
+             ctx.lineWidth = 3;
+             ctx.beginPath();
+             ctx.moveTo(distnaciaX + 170, distnaciaY + 5);
+             ctx.lineTo(distnaciaX + 230, distnaciaY + 5);
+             ctx.lineTo(distnaciaX + 200, distnaciaY + 40);
+             ctx.lineTo(distnaciaX + 171, distnaciaY + 5);
+             ctx.stroke();
+             ctx.fill();
+         }
+
+         function DibujarRuleta(ArregloElementos) {
+             
+               objRuleta = new Winwheel({
+                'canvasId': 'Ruleta',
+                'numSegments': ArregloElementos.length,
+                'outerRadius': 290,
+                'innerRadius': 3,
+                'lineWidth': 3,
+                'strokeStyle': '#fffedf',
+                'segments':ArregloElementos,
+                'textMargin': 25,
+                'animation':
+                {
+                    'type': 'spinToStop',
+                    'duration':4,
+                    'spins': 15,
+                    'callbackFinished': 'Mensaje()',
+                    'callbackAfter': 'DibujarTriangulo()' 
+                    
+                }, 
+            
+             });
+    
+               DibujarTriangulo();
+	  }
+        function leerElementos() {
+                    txtListaElementos=$('#ListaElementos').val().trim();
+                    var Elementos = txtListaElementos.split('\n');
+                    var ElementosRuleta= [];
+                    var colores = ['#fd7eff', '#7ee2ff', '#7effa5', '#f5ff7e', '#ffc46a'];
+                Elementos.forEach(function (Elemento, index) {
+                    if (Elemento) {
+                        ElementosRuleta.push({ 'fillStyle': colores[index % colores.length], 'text': Elemento });
+                    }
+                });
+                  DibujarRuleta(ElementosRuleta);
+	     } 
+         leerElementos();
+		  var audio = new Audio('img/efect.mp3');  // Create audio object and load desired file.
+		function SonidoFinal()
+			{
+				audio.pause();
+				audio.currentTime = 0;
+				audio.play();
+				audio.volume=0.25;
+			}
+            function mezclarElementos() {
+                let txtListaElementos = $('#ListaElementos').val().trim();
+                let Elementos = txtListaElementos.split('\n');
+                
+                for (let i = Elementos.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [Elementos[i], Elementos[j]] = [Elementos[j], Elementos[i]];
+                }
+                $('#ListaElementos').val(Elementos.join('\n'));
+
+                leerElementos();
+            }
+ 
+</script>
+</div>
+</div>
+    </form>
+
+<script>
+    function toggleSidebar() {
+            document.getElementById("sidebar").classList.toggle("active");
+            document.getElementById("main").classList.toggle("shifted");
+        }
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-74824848-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</div>
+</body>
+</html>
