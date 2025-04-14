@@ -55,8 +55,8 @@ class LateralBarB extends HTMLElement {
           ${this.redSocial("Facebook", "/FlapPage/img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
           ${this.redSocial("TikTok", "/FlapPage/img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
           ${this.redSocial("YouTube", "/FlapPage/img/iconos/Youtube_w.png", "https://www.youtube.com/@FlapjackDota")}
-          ${this.redSocial("Kick", "/FlapPage/img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
-          ${this.redSocial("Twitch", "/img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
+          ${this.redSocial("Kick", "img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
+          ${this.redSocial("Twitch", "img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
           ${this.redSocial("X", "img/iconos/x_w.png", "https://x.com/flapjackdota")}
         </div>
       </div>
