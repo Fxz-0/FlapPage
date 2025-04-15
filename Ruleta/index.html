@@ -72,9 +72,9 @@ Opcion 5
                 <!--input type="button" onclick="leerElementos()" class="btn btn-warning btn-lg btn-block" value="Generar"/-->
                 <input type="button" onclick="mezclarElementos()" class="btn btn-danger btn-lg btn-block" value="Mezclar " />
                 <input id="bigButton" class="btn-block btn-lg btn btn-success " onclick="objRuleta.startAnimation(); this.disabled=true;" value="Girar" type="button"/><br />
-                <img src="img/OgreMagi.webp" alt="Button 1" class="img-button" onclick="BaraOpcions()" style="cursor: pointer; width: 80px; margin: 20px 0px 10px 0px;">
-                <img src="img/BarathrumSquare.webp" alt="Button 2" class="img-button" onclick="MulticastOpcion()" style="cursor: pointer; width: 80px; margin:20px 10px 10px 10px;">
-                <img src="img/image_2025-04-09_191452607.webp" alt="Button 3" class="img-button" onclick="RulettesubsOpcion()" style="cursor: pointer; width: 80px; margin:20px 0px 10px 0px;">
+                <img src="../img/OgreMagi.webp" alt="Button 1" class="img-button" onclick="BaraOpcions()" style="cursor: pointer; width: 80px; margin: 20px 0px 10px 0px;">
+                <img src="../img/BarathrumSquare.webp" alt="Button 2" class="img-button" onclick="MulticastOpcion()" style="cursor: pointer; width: 80px; margin:20px 10px 10px 10px;">
+                <img src="../img/image_2025-04-09_191452607.webp" alt="Button 3" class="img-button" onclick="RulettesubsOpcion()" style="cursor: pointer; width: 80px; margin:20px 0px 10px 0px;">
             </div>
         </div>  
     </div>
@@ -90,19 +90,21 @@ Opcion 5
                
             </div>
             </div>
-     <script>
-         var objRuleta;
-         var winningSegment;
-         var distnaciaX = 150;
-         var distnaciaY = 50;
-         var ctx ;
+    <script>
+        var objRuleta;
+        var winningSegment;
+        var distnaciaX = 150;
+        var distnaciaY = 50;
+        var ctx ;
+        var audioTick = new Audio('../img/recursos/efectorl.mp3');
+        var previousSegmentIndex = null;
          function Mensaje() {
              winningSegment = objRuleta.getIndicatedSegment();
 			 SonidoFinal();
              swal({
                 title:"GANASTE" ,
                 text:" ¡ "+winningSegment.text+" !" ,
-                imageUrl: "img/rat-rainbow.gif",
+                imageUrl: "../img/rat-rainbow.gif",
                 showCancelButton: true,
                 confirmButtonColor: "#6f1acf",
                 confirmButtonText: "Aceptar",
@@ -110,37 +112,52 @@ Opcion 5
                 closeOnConfirm: true,
                 closeOnCancel: true
             },
-      function (isConfirm) {
-          if (isConfirm) {
-             
-          } else {
-              $('#ListaElementos').val($('#ListaElementos').val().replace(winningSegment.text,""));
-              leerElementos();  
-          }
-          objRuleta.stopAnimation(false);
-          objRuleta.rotationAngle = 0;
-          objRuleta.draw();
-          DibujarTriangulo();
-          bigButton.disabled = false;
-      });
+    function (isConfirm) {
+        if (isConfirm) {
+            
+        } else {
+            $('#ListaElementos').val($('#ListaElementos').val().replace(winningSegment.text,""));
+            leerElementos();  
+        }
+        objRuleta.stopAnimation(false);
+        objRuleta.rotationAngle = 0;
+        objRuleta.draw();
+        DibujarTriangulo();
+        bigButton.disabled = false;
+    });
 
       }
 
-         function DibujarTriangulo() {
-             distnaciaX = 150;
-             distnaciaY = 50;
-             ctx = objRuleta.ctx;
-             ctx.strokeStyle = '#fffedf';
-             ctx.fillStyle = '#000000';
-             ctx.lineWidth = 3;
-             ctx.beginPath();
-             ctx.moveTo(distnaciaX + 170, distnaciaY + 5);
-             ctx.lineTo(distnaciaX + 230, distnaciaY + 5);
-             ctx.lineTo(distnaciaX + 200, distnaciaY + 40);
-             ctx.lineTo(distnaciaX + 171, distnaciaY + 5);
-             ctx.stroke();
-             ctx.fill();
-         }
+        function DibujarTriangulo() {
+            distnaciaX = 150;
+            distnaciaY = 50;
+            ctx = objRuleta.ctx;
+            ctx.strokeStyle = '#fffedf';
+            ctx.fillStyle = '#000000';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(distnaciaX + 170, distnaciaY + 5);
+            ctx.lineTo(distnaciaX + 230, distnaciaY + 5);
+            ctx.lineTo(distnaciaX + 200, distnaciaY + 40);
+            ctx.lineTo(distnaciaX + 171, distnaciaY + 5);
+            ctx.stroke();
+            ctx.fill();
+        }
+
+        function SonidoTick() {
+            let currentSegmentIndex = objRuleta.getIndicatedSegmentNumber();
+            if (previousSegmentIndex !== currentSegmentIndex) {
+                audioTick.pause();
+                audioTick.currentTime = 0;
+                audioTick.play();
+                previousSegmentIndex = currentSegmentIndex;
+            }
+        }
+
+         function AnimacionLoop() {
+            DibujarTriangulo();
+            SonidoTick();   
+        }
 
          function DibujarRuleta(ArregloElementos) {
              
@@ -156,11 +173,11 @@ Opcion 5
                 'animation':
                 {
                     'type': 'spinToStop',
-                    'duration':4,
-                    'spins': 15,
+                    'duration':5,
+                    'spins': 10,
                     'callbackFinished': 'Mensaje()',
-                    'callbackAfter': 'DibujarTriangulo()' 
-                    
+                    'callbackAfter': 'AnimacionLoop()', 
+                    'easing': 'Power3.easeOut'
                 }, 
             
              });
@@ -180,7 +197,7 @@ Opcion 5
                   DibujarRuleta(ElementosRuleta);
 	     } 
          leerElementos();
-		  var audio = new Audio('img/efect.mp3');  // Create audio object and load desired file.
+		  var audio = new Audio('../img/efect.mp3');  // Create audio object and load desired file.
 		function SonidoFinal()
 			{
 				audio.pause();
