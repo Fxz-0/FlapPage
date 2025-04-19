@@ -3,25 +3,36 @@ body {
     justify-content: center;
     background-color: #1e022e;
 }
-h1{
+h1 {
     font-family: "Notable", serif;
-    margin-top: 0.9rem;
-    position: absolute;
+    margin-top: 0.5rem;
+    position: relative;
     display: flex;
+    justify-content: center;
     text-align: center;
     font-size: 3.5rem;
     color: white;
     text-shadow: 4px 4px 6px rgb(0, 0, 0);
+    width: 100%;
 }
-h2{
+h2 {
     font-family: "Dancing Script", serif;
     display: flex;
-    position:fixed;
+    position: relative;
     font-size: 3rem;
     color: white;
     text-shadow: 4px 4px 6px rgb(0, 0, 0);
     align-items: center;
     justify-content: center;
+    margin: 0;
+}
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+    padding-top: 2rem;
 }
 .notable-regular {
     font-family: "Notable", serif;
@@ -53,14 +64,13 @@ h2{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 12rem;
     gap: 20px;
     max-width: 1200px;
 }
 
 .card {
-    width: 300px;
-    height: 400px;
+    width: 280px;
+    height: 380px;
     position: relative;
     overflow: hidden;
     border-radius: 10px;
@@ -313,5 +323,110 @@ h2{
     }
     .main-content.shifted {
         margin-left: 0;
+    }
+}
+@media (max-width: 768px) {
+    .playlist {
+        font-size: 2rem;
+        margin-top: 3rem;
+        text-align: center;
+        width: 100%;
+    }
+    
+    .playlist-container {
+        width: 95%;
+        margin-top: 6rem;
+    }
+    
+    .playlst-item {
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        padding: 0.8rem;
+    }
+    
+    .playlst-image {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .playlst-info {
+        margin-left: 1rem; 
+    }
+    
+    .playlst-title {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .playlst-description {
+        font-size: 0.8rem;
+        line-height: 1.2;
+    }
+}
+
+@media (max-width: 480px) {
+    .playlist {
+        font-size: 1.5rem;
+        margin-top: 2.5rem;
+    }
+    
+    .playlist-container {
+        width: 100%;
+        margin-top: 5rem;
+        padding: 0 10px;
+    }
+    
+    .playlst-image {
+        width: 60px;
+        height: 60px;
+        min-width: 60px;
+    }
+    
+    .playlst-info {
+        margin-left: 0.8rem;
+    }
+    
+    .playlst-item:hover {
+        transform: translateX(5px);
+    }
+}
+@media (max-width: 768px) {
+    .main-content {
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+        margin-top: 0.5rem;
+        padding: 0 10px;
+        text-align: center;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+    
+    .title-container {
+        margin-top: 0.5rem;
+        padding-top: 1rem;
+    }
+    
+    .cards-container {
+        margin-top: 6rem;
+    }
+}
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+    }
+    .cards-container {
+        margin-top: 0rem;
     }
 }

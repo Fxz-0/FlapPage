@@ -18,6 +18,12 @@ body.stop-scrolling {
     z-index: 10000; 
     font-family: "Faculty Glyphic", sans-serif;}
   
+  .page-container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem;
+  }
   .sweet-alert {
     background-color: white;
     font-family: "Faculty Glyphic", sans-serif;
@@ -1000,11 +1006,10 @@ body{
   background-color: #220936;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 80px;
 }
 .sidebar.active{
   width: 300px;
-  margin-top: 1rem;
 }
 .toggle-btn {
   position: fixed;
@@ -1122,4 +1127,183 @@ body{
   margin-top: 8rem;
   margin-left: 2rem;
   margin-right: 2rem;
+}
+
+.roulette-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#canvasContainer {
+  background-image: url(../img/Muerte.png);
+  background-repeat: no-repeat;  
+  background-position: center;
+  background-size: 1px; 
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+canvas#Ruleta {
+  max-width: 100%;
+  height: auto;
+}
+
+.button-container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.button-container input {
+  width: 50%;
+  font-size: 1.2rem;
+}
+
+options-card {
+  width: 100%;
+  max-width: 350px;
+}
+
+.options-card .card {
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.button-group input {
+  margin-bottom: 10px;
+}
+
+.special-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.img-button {
+  transition: transform 0.2s;
+}
+
+.img-button:hover {
+  transform: scale(1.1);
+}
+.results-card {
+  width: 100%;
+  max-width: 350px;
+  font-family: "Faculty Glyphic", sans-serif;
+}
+
+.premios-list {
+  max-height: 300px;
+  overflow-y: auto;
+  font-family: "Faculty Glyphic", sans-serif;
+}
+
+.premio-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.premio-texto {
+  font-weight: bold;
+}
+
+.premio-fecha {
+  font-size: 0.8rem;
+  color: #666;
+}
+@media (max-width: 1200px) {
+  .content-container {
+      flex-direction: column;
+      align-items: center;
+  }
+  
+  .roulette-container, .options-card, .results-card {
+      order: 0;
+      margin-bottom: 20px;
+  }
+}
+@media (max-width: 768px) {
+  h1 {
+      font-size: 1.8rem;
+  }
+  
+  /* Orden para dispositivos móviles */
+  .roulette-container {
+      order: 1;
+  }
+  
+  .options-card {
+      order: 2;
+  }
+  
+  .results-card {
+      order: 3;
+  }
+  
+  canvas#Ruleta {
+      max-width: 100%;
+      height: auto;
+  }
+  
+  .button-container input {
+      width: 80%;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+      font-size: 1.5rem;
+  }
+  
+  .page-container {
+      padding: 0.5rem;
+  }
+  
+  .button-container input {
+      width: 100%;
+  }
+}
+.elemento {
+  overflow-y: scroll; 
+  overflow-x: hidden; 
+}
+
+#main.shifted {
+  margin-left: 250px;
+}
+
+@media (max-width: 768px) {
+  #main.shifted {
+      margin-left: 0;
+      padding-top: 60px;
+  }
+}
+.page-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.content-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  font-family: "Faculty Glyphic", sans-serif;
 }
