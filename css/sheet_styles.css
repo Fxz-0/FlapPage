@@ -129,6 +129,9 @@ h2 {
     background-color: #5500a5e6;
 }
 
+.card:nth-child(4) .overlay {
+    background-color: #5500a5e6;
+}
 .card:hover .overlay {
     opacity: 1;
 }
