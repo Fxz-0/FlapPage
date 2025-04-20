@@ -177,7 +177,7 @@ class ResultsList extends HTMLElement {
           <div class="results-card">
               <div class="card">
                   <div class="card-body">
-                      <h4 class="card-title">Premios Ganados:</h4>
+                      <h4 class="card-title" id="h4-Area">Premios Ganados:</h4>
                       <div id="premiosGanados" class="premios-list">
                           <!-- Aquí se mostrarán los premios ganados -->
                           <p>No hay premios ganados aún</p>
