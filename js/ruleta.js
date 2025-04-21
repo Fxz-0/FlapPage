@@ -55,9 +55,8 @@ function agregarPremioGanado(premio) {
     premioItem.classList.add('premio-item');
     premioItem.innerHTML = `
         <span class="premio-texto">${premio}</span>
-        <span class="premio-fecha">${new Date().toLocaleString()}</span>
     `;
-
+//<span class="premio-fecha">${new Date().toLocaleString()}</-span>
     premiosList.appendChild(premioItem);
 }
 
