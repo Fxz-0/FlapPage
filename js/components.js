@@ -144,11 +144,67 @@ class OptionsList extends HTMLElement {
         <div class="card-body">
             <h4 class="card-title">Lista de elementos:</h4>  
             <textarea id="ListaElementos" class="form-control" rows="13">
-Opcion 1
-Opcion 2
-Opcion 3
-Opcion 4
-Opcion 5
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+4000 puntos
+4000 puntos
+desayuno en Tambo
+desayuno en Tambo
+desayuno en Tambo
+5 soles
+5 soles
+5 soles
+5 soles
+5 soles
+5 soles
+tu menú
+tu menú 
+10 soles
+10 soles
+10 soles
+10 soles
+entrada Valetodo
+balde de KFC
+50 soles
+50 soles
+50 soles
+100 soles
             </textarea>
             <br />
             <div class="button-group">
