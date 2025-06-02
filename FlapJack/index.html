@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/js/components.js"></script>
+    <link rel="stylesheet" href="/css/sheet_styles.css">
+</head>
+<body>
+    <lateralbar-b></lateralbar-b>
+    <div class="_3oI3Cee_b2-8YjgBOC_Tc2 phoenix">
+        <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.png" autoplay="" preload="auto" loop="" playsinline="">
+            <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.mov">
+            <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.webm?undefined">
+            <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.png">
+        </video>
+    </div>
+    <div class="_3oI3Cee_b2-8YjgBOC_Tc2 spirit_breaker">
+        <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.png" autoplay="" preload="auto" loop="" playsinline="">
+            <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.mov">
+            <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.webm?undefined">
+            <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.png">
+        </video>
+    </div>
+    <div class="_3oI3Cee_b2-8YjgBOC_Tc2 techies">
+        <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.png" autoplay="" preload="auto" loop="" playsinline="">
+            <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.mov">
+            <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.webm?undefined">
+            <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.png">
+        </video>
+    </div>
+    <div class="_3oI3Cee_b2-8YjgBOC_Tc2 wisp">
+        <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.png" autoplay="" preload="auto" loop="" playsinline="">
+            <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.mov">
+            <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.webm?undefined">
+            <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.png">
+        </video>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.querySelector("video");
+            video.muted = true; // Asegúrate de que esté silenciado
+            video.play().catch(error => {
+                console.error("El video no pudo reproducirse automáticamente:", error);
+            });
+        });
+    </script>
+</body>
+</html>
