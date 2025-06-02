@@ -329,7 +329,7 @@ class PortadaComponent extends HTMLElement {
           </div>
 
           <div class="layer layer-2">
-              <img src="../img/flap2024.webp" alt="FlapJack" class="profile-pic" >
+              <img src="img/flap2024.webp" alt="FlapJack" class="profile-pic" >
           </div>
           
           <div class="layer layer-1">
