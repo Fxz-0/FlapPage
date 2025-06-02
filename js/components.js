@@ -177,11 +177,69 @@ class OptionsList extends HTMLElement {
         <div class="card-body">
             <h4 class="card-title">Lista de elementos:</h4>  
             <textarea id="ListaElementos" class="form-control" rows="13">
-Opcion 1
-Opcion 2
-Opcion 3
-Opcion 4
-Opcion 5
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+1 sol
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+2 soles
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1000 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+1500 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+2000 puntos
+4000 puntos
+4000 puntos
+desayuno en Tambo
+desayuno en Tambo
+desayuno en Tambo
+5 soles
+5 soles
+5 soles
+5 soles
+5 soles
+5 soles
+tu menú
+tu menú 
+10 soles
+10 soles
+10 soles
+10 soles
+entrada Valetodo
+balde de KFC
+50 soles
+50 soles
+50 soles
+100 soles
+100 soles
+BAN (1 dia)
             </textarea>
             <br />
             <div class="button-group">
@@ -225,3 +283,70 @@ class ResultsList extends HTMLElement {
 customElements.define('roulette-component', RouletteComponent);
 customElements.define('options-list', OptionsList);
 customElements.define('results-list', ResultsList);
+
+// --------------------------------------------------
+class PortadaComponent extends HTMLElement {
+  constructor() {
+      super();
+  }
+
+  connectedCallback() {
+      this.innerHTML = `
+      <div class="container">
+        <div class="layers-container" id="container">
+          <div class="layer layer-4">
+              <div class="_3oI3Cee_b2-8YjgBOC_Tc2 spirit_breaker">
+                  <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.png" autoplay="" preload="auto" loop="" playsinline=""  style="height: 350px; margin-left: -45px;">
+                      <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.mov">
+                      <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.webm?undefined">
+                      <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/spirit_breaker.png">
+                  </video>
+              </div>
+              <div class="_3oI3Cee_b2-8YjgBOC_Tc2 wisp">
+                  <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.png" autoplay="" preload="auto" loop="" playsinline=""  style="height: 500px; transform: scaleX(-1); margin-left: 450px; margin-top: -50px;">
+                      <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.mov">
+                      <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.webm?undefined">
+                      <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/wisp.png">
+                  </video>
+              </div>
+          </div>
+
+          <div class="layer layer-3">
+              <div class="_3oI3Cee_b2-8YjgBOC_Tc2 phoenix">
+                  <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.png" autoplay="" preload="auto" loop="" playsinline=""  style="height: 650px; margin: -100px;">
+                      <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.mov">
+                      <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.webm?undefined">
+                      <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/phoenix.png">
+                  </video>
+              </div>
+              <div class="_3oI3Cee_b2-8YjgBOC_Tc2 techies">
+                  <video class="_22nJ5nsfHDS2jEscPEne0-" poster="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.png" autoplay="" preload="auto" loop="" playsinline=""  style="height: 430px;  margin-left: -200px;  transform: scaleX(-1);" >
+                      <source type="video/mp4; codecs=&quot;hvc1&quot;" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.mov">
+                      <source type="video/webm" src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.webm?undefined">
+                      <img src="https://cdn.akamai.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/techies.png">
+                  </video>
+              </div>
+          </div>
+
+          <div class="layer layer-2">
+              <img src="../img/flap2024.webp" alt="FlapJack" class="profile-pic" >
+          </div>
+          
+          <div class="layer layer-1">
+                  <h1>the FLAPJACK'S Carnival</h1>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+customElements.define('portada-component', PortadaComponent);
+document.addEventListener("DOMContentLoaded", function () {
+  const videos = document.querySelectorAll("portada-component video");
+  videos.forEach(video => {
+    video.muted = true; // Asegúrate de que esté silenciado
+    video.play().catch(error => {
+        console.error("El video no pudo reproducirse automáticamente:", error);
+    });
+  });
+});
