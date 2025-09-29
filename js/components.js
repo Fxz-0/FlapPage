@@ -148,8 +148,6 @@ class LateralBarC extends HTMLElement {
 
       <div class="sidebar" id="sidebar">
         <nav class="sidebar-nav">
-            ${this.navItem("Inicio", "/FlapPage/")}
-            ${this.navItem("Playlist", "/FlapPage/Playlist/")}
             ${this.navItem("Discord", "https://discord.gg/euf5vbppCC")}
         </nav>
         <div class="social-section">
@@ -200,7 +198,7 @@ class LateralBarC extends HTMLElement {
     `;
   }
 }
-  customElements.define('lateralbar-c', LateralBarC);
+customElements.define('lateralbar-c', LateralBarC);
 
 class LateralBarD extends HTMLElement {
   connectedCallback() {
