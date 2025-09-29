@@ -154,13 +154,13 @@ class LateralBarC extends HTMLElement {
         </nav>
         <div class="social-section">
           <h3 class="section">Redes</h3>
-            ${this.redSocial("Instagram", "../img/iconos/Instagram_w.png", "https://www.instagram.com/flapjackdota/")}
-            ${this.redSocial("Facebook", "../img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
-            ${this.redSocial("TikTok", "../img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
-            ${this.redSocial("YouTube", "../img/iconos/Youtube_w.png", "https://www.youtube.com/@FlapjackDota")}
-            ${this.redSocial("Kick", "../img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
-            ${this.redSocial("Twitch", "../img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
-            ${this.redSocial("X", "../img/iconos/x_w.png", "https://x.com/flapjackdota")}
+            ${this.redSocial("Instagram", "img/iconos/Instagram_w.png", "https://www.instagram.com/flapjackdota/")}
+            ${this.redSocial("Facebook", "img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
+            ${this.redSocial("TikTok", "img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
+            ${this.redSocial("YouTube", "img/iconos/Youtube_w.png", "https://www.youtube.com/@FlapjackDota")}
+            ${this.redSocial("Kick", "img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
+            ${this.redSocial("Twitch", "img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
+            ${this.redSocial("X", "img/iconos/x_w.png", "https://x.com/flapjackdota")}
         </div>
       </div>
       <button class="close-btn" id="closeSidebar">&times;</button>
