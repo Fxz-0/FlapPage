@@ -1,13 +1,16 @@
 class LateralBarA extends HTMLElement {
-    connectedCallback() {
-      this.innerHTML = `
-        <div class="sidebar" id="sidebar">
-            <a href="/FlapPage/" class="nav-link">Inicio</a>
-            <a href="/FlapPage/Ruleta" class="nav-link">Ruleta</a>
-            <a href="https://discord.gg/euf5vbppCC" class="nav-link">Discord</a>
+  connectedCallback() {
+    this.innerHTML = `
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-          <div class="social-section">
-            <h3 class="section">Redes</h3>
+      <div class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            ${this.navItem("Inicio", "/FlapPage/")}
+            ${this.navItem("Playlist", "/FlapPage/Playlist/")}
+            ${this.navItem("Discord", "https://discord.gg/euf5vbppCC")}
+        </nav>
+        <div class="social-section">
+          <h3 class="section">Redes</h3>
             ${this.redSocial("Instagram", "../img/iconos/Instagram_w.png", "https://www.instagram.com/flapjackdota/")}
             ${this.redSocial("Facebook", "../img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
             ${this.redSocial("TikTok", "../img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
@@ -15,99 +18,188 @@ class LateralBarA extends HTMLElement {
             ${this.redSocial("Kick", "../img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
             ${this.redSocial("Twitch", "../img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
             ${this.redSocial("X", "../img/iconos/x_w.png", "https://x.com/flapjackdota")}
-          </div>
         </div>
-      `;
-    }
-    redSocial(nombre, icono, link) {
-        return `
-          <a href="${link}" target="_blank">
-            <div class="social-item">
-              <div class="social-icon"><img src="${icono}" alt="${nombre}" class="social-icon"></div>
-              <h3 class="social-text">${nombre}</h3>
-            </div>
-          </a>
-        `;
-      }
+      </div>
+      <button class="close-btn" id="closeSidebar">&times;</button>
+    `;
+
+    const sidebar = this.querySelector("#sidebar");
+    const overlay = this.querySelector("#sidebarOverlay");
+    const closeBtn = this.querySelector("#closeSidebar");
+
+    overlay.addEventListener("click", () => this.closeSidebar(sidebar, overlay));
+    closeBtn.addEventListener("click", () => this.closeSidebar(sidebar, overlay));
+  }
+
+  closeSidebar(sidebar, overlay) {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    const main = document.getElementById("main");
+    if (main) main.classList.remove("shifted");
+  }
+
+  navItem(nombre, link) {
+    return `
+      <a href="${link}" class="nav-link">
+        <span class="nav-text">${nombre}</span>
+      </a>
+    `;
+  }
+
+  redSocial(nombre, icono, link) {
+    return `
+      <a href="${link}" target="_blank" class="social-item">
+        <div class="social-icon">
+          <img src="${icono}" alt="${nombre}" />
+        </div>
+        <span class="social-text">${nombre}</span>
+      </a>
+    `;
+  }
 }
-    
-customElements.define('lateralbar-a', LateralBarA);
+
+customElements.define("lateralbar-a", LateralBarA);
 
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
   const main = document.getElementById("main");
+  const overlay = document.getElementById("sidebarOverlay");
 
-  sidebar.classList.toggle("active");
-  main.classList.toggle("shifted");
+  const isActive = sidebar.classList.contains("active");
+
+  if (isActive) {
+    sidebar.classList.remove("active");
+    main?.classList.remove("shifted");
+    overlay?.classList.remove("active");
+  } else {
+    sidebar.classList.add("active");
+    main?.classList.add("shifted");
+    overlay?.classList.add("active");
+  }
 }
+
 
 class LateralBarB extends HTMLElement {
   connectedCallback() {
-    this.innerHTML = `
-      <div class="sidebar" id="sidebar">
-        <a href="/FlapPage/" class="nav-link">Inicio</a>
-        <a href="/FlapPage/Playlist/" class="nav-link">Playlist</a>
-        <a href="https://discord.gg/euf5vbppCC" class="nav-link">Discord</a>
+        this.innerHTML = `
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+      <div class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            ${this.navItem("Inicio", "/FlapPage/")}
+            ${this.navItem("Ruleta", "/FlapPage/Ruleta/")}
+            ${this.navItem("Discord", "https://discord.gg/euf5vbppCC")}
+        </nav>
         <div class="social-section">
           <h3 class="section">Redes</h3>
-          ${this.redSocial("Instagram", "img/iconos/Instagram_w.png", "https://www.instagram.com/flapjackdota/")}
-          ${this.redSocial("Facebook", "img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
-          ${this.redSocial("TikTok", "img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
-          ${this.redSocial("YouTube", "img/iconos/Youtube_w.png", "https://www.youtube.com/@FlapjackDota")}
-          ${this.redSocial("Kick", "img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
-          ${this.redSocial("Twitch", "img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
-          ${this.redSocial("X", "img/iconos/x_w.png", "https://x.com/flapjackdota")}
+            ${this.redSocial("Instagram", "../img/iconos/Instagram_w.png", "https://www.instagram.com/flapjackdota/")}
+            ${this.redSocial("Facebook", "../img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
+            ${this.redSocial("TikTok", "../img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
+            ${this.redSocial("YouTube", "../img/iconos/Youtube_w.png", "https://www.youtube.com/@FlapjackDota")}
+            ${this.redSocial("Kick", "../img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
+            ${this.redSocial("Twitch", "../img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
+            ${this.redSocial("X", "../img/iconos/x_w.png", "https://x.com/flapjackdota")}
         </div>
       </div>
+      <button class="close-btn" id="closeSidebar">&times;</button>
+    `;
+
+    const sidebar = this.querySelector("#sidebar");
+    const overlay = this.querySelector("#sidebarOverlay");
+    const closeBtn = this.querySelector("#closeSidebar");
+
+    overlay.addEventListener("click", () => this.closeSidebar(sidebar, overlay));
+    closeBtn.addEventListener("click", () => this.closeSidebar(sidebar, overlay));
+  }
+
+  closeSidebar(sidebar, overlay) {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    const main = document.getElementById("main");
+    if (main) main.classList.remove("shifted");
+  }
+
+  navItem(nombre, link) {
+    return `
+      <a href="${link}" class="nav-link">
+        <span class="nav-text">${nombre}</span>
+      </a>
     `;
   }
+
   redSocial(nombre, icono, link) {
-      return `
-        <a href="${link}" target="_blank">
-          <div class="social-item">
-            <div class="social-icon"><img src="${icono}" alt="${nombre}" class="social-icon"></div>
-            <h3 class="social-text">${nombre}</h3>
-          </div>
-        </a>
-      `;
-    }
+    return `
+      <a href="${link}" target="_blank" class="social-item">
+        <div class="social-icon">
+          <img src="${icono}" alt="${nombre}" />
+        </div>
+        <span class="social-text">${nombre}</span>
+      </a>
+    `;
   }
+}
 
 customElements.define('lateralbar-b', LateralBarB);
 
 class LateralBarC extends HTMLElement {
   connectedCallback() {
-    this.innerHTML = `
-      <div class="sidebar" id="sidebar">
-        <a href="/FlapPage/" class="nav-link">Inicio</a>
-        <a href="/FlapPage/Ruleta" class="nav-link">Ruleta</a>
-        <a href="https://discord.gg/euf5vbppCC" class="nav-link">Discord</a>
+        this.innerHTML = `
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
+      <div class="sidebar" id="sidebar">
+        <nav class="sidebar-nav">
+            ${this.navItem("Inicio", "/FlapPage/")}
+            ${this.navItem("Playlist", "/FlapPage/Playlist/")}
+            ${this.navItem("Discord", "https://discord.gg/euf5vbppCC")}
+        </nav>
         <div class="social-section">
           <h3 class="section">Redes</h3>
-          ${this.redSocial("Instagram", "../img/iconos/Instagram_w.png", "https://www.instagram.com/flapjackdota/")}
-          ${this.redSocial("Facebook", "../img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
-          ${this.redSocial("TikTok", "../img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
-          ${this.redSocial("YouTube", "../img/iconos/Youtube_w.png", "https://www.youtube.com/@FlapjackDota")}
-          ${this.redSocial("Kick", "../img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
-          ${this.redSocial("Twitch", "../img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
-          ${this.redSocial("X", "../img/iconos/x_w.png", "https://x.com/flapjackdota")}
+            ${this.redSocial("Instagram", "../img/iconos/Instagram_w.png", "https://www.instagram.com/flapjackdota/")}
+            ${this.redSocial("Facebook", "../img/iconos/facebook_w.png", "https://www.facebook.com/FlapjackDotA/")}
+            ${this.redSocial("TikTok", "../img/iconos/tik-tok_w.png", "https://www.tiktok.com/@flapjackdota")}
+            ${this.redSocial("YouTube", "../img/iconos/Youtube_w.png", "https://www.youtube.com/@FlapjackDota")}
+            ${this.redSocial("Kick", "../img/iconos/kick_w.png", "https://kick.com/flapjackdota")}
+            ${this.redSocial("Twitch", "../img/iconos/twitch_w.png", "https://www.twitch.tv/flapjackdota")}
+            ${this.redSocial("X", "../img/iconos/x_w.png", "https://x.com/flapjackdota")}
         </div>
       </div>
+      <button class="close-btn" id="closeSidebar">&times;</button>
+    `;
+
+    const sidebar = this.querySelector("#sidebar");
+    const overlay = this.querySelector("#sidebarOverlay");
+    const closeBtn = this.querySelector("#closeSidebar");
+
+    overlay.addEventListener("click", () => this.closeSidebar(sidebar, overlay));
+    closeBtn.addEventListener("click", () => this.closeSidebar(sidebar, overlay));
+  }
+
+  closeSidebar(sidebar, overlay) {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+    const main = document.getElementById("main");
+    if (main) main.classList.remove("shifted");
+  }
+
+  navItem(nombre, link) {
+    return `
+      <a href="${link}" class="nav-link">
+        <span class="nav-text">${nombre}</span>
+      </a>
     `;
   }
+
   redSocial(nombre, icono, link) {
-      return `
-        <a href="${link}" target="_blank">
-          <div class="social-item">
-            <div class="social-icon"><img src="${icono}" alt="${nombre}" class="social-icon"></div>
-            <h3 class="social-text">${nombre}</h3>
-          </div>
-        </a>
-      `;
-    }
+    return `
+      <a href="${link}" target="_blank" class="social-item">
+        <div class="social-icon">
+          <img src="${icono}" alt="${nombre}" />
+        </div>
+        <span class="social-text">${nombre}</span>
+      </a>
+    `;
   }
+}
   customElements.define('lateralbar-c', LateralBarC);
 
 class LateralBarD extends HTMLElement {

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Notable&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/sheet_styles.css">
+    <link rel="icon" type="image/x-icon" href="img/iconos/logo-skull.ico">
+    <script src="../js/components.js"></script>
+    <title>Flapjack</title>
+  <link rel="stylesheet" href="/HuesoStore/styles.css">
+  <script src="js/components.js"></script>
+</head>
+<body>
+  <header>
+    <h1 class="titulo-principal">HUESO STORE</h1>
+  </header>
+  <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <lateralbar-a></lateralbar-a>
+  <section class="galeria">
+    <h2>Trassure : Cosmic 2025 Heroes' Hoard</h2>
+    <div class="grid-galeria">
+      <div class="card"  onclick="abrirModal(this)"
+        data-nombre="Taurid Twilight" 
+        data-precio="S/.7" 
+        data-img="../img/trassure/Cosmetic_icon_Taurid_Twilight.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/Cosmetic_icon_Taurid_Twilight.png">
+        <h3> Spirit Breaker</h3>
+        <p class="precio">S/.7</p>
+      </div>
+      <div class="card" onclick="abrirModal(this)"
+        data-nombre="Graviton Blackguard" 
+        data-precio="S/.7" 
+        data-img="../img/trassure/enigma.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/enigma.png">
+        <h3>Enigma</h3>
+        <p class="precio">S/.7</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Photonic Father" 
+        data-precio="S/.7" 
+        data-img="../img/trassure/zeus.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/zeus.png">
+        <h3>Zeus</h3>
+        <p class="precio">S/.7</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Umbral Expanse" 
+        data-precio="S/.8" 
+        data-img="../img/trassure/vspirit.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/vspirit.png">
+        <h3>Void Spirit</h3>
+        <p class="precio">S/.8</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Frozen Nova" 
+        data-precio="S/.6" 
+        data-img="../img/trassure/ancient.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/ancient.png">
+        <h3>Ancient Apparition</h3>
+        <p class="precio">S/.6</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Photax Fluttercat" 
+        data-precio="S/.15" 
+        data-img="../img/trassure/mirana.png" 
+        data-desc="Rarity: Imortal.">
+        <img src="../img/trassure/mirana.png">
+        <h3>Mirana</h3>
+        <p class="precio">S/.15</p>
+      </div>
+      <div class="card"  onclick="abrirModal(this)"
+        data-nombre="Star Sage" 
+        data-precio="S/.8" 
+        data-img="../img/trassure/phoenix.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/phoenix.png">
+        <h3>Phoenix</h3>
+        <p class="precio">S/.8</p>
+      </div>
+      <div class="card" onclick="abrirModal(this)"
+        data-nombre="Astral Schism" 
+        data-precio="S/.8" 
+        data-img="../img/trassure/sven.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/sven.png">
+        <h3>Sven</h3>
+        <p class="precio">S/.8</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Narwolf Nebula" 
+        data-precio="S/.13" 
+        data-img="../img/trassure/cmeiden.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/cmeiden.png">
+        <h3>Crystal Maiden</h3>
+        <p class="precio">S/.13</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Chrononaut Continuum" 
+        data-precio="S/.13" 
+        data-img="../img/trassure/faceleesvoid.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/faceleesvoid.png">
+        <h3>Faceless Void</h3>
+        <p class="precio">S/.13</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Cosmic Cartographer" 
+        data-precio="S/.8" 
+        data-img="../img/trassure/marci.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/marci.png">
+        <h3>Marci</h3>
+        <p class="precio">S/.8</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Flame of Origin" 
+        data-precio="S/.7" 
+        data-img="../img/trassure/lina.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/lina.png">
+        <h3>Lina</h3>
+        <p class="precio">S/.7</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Interstellar Astrarium" 
+        data-precio="S/.25" 
+        data-img="../img/trassure/tinker.png" 
+        data-desc="Rarity: Imortal.">
+        <img src="../img/trassure/tinker.png">
+        <h3>Tinker</h3>
+        <p class="precio">S/.25</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Pisces Gemini" 
+        data-precio="S/.30" 
+        data-img="../img/trassure/ogre.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/ogre.png">
+        <h3>Ogre Magi</h3>
+        <p class="precio">S/.30</p>
+      </div>
+      <div class="card"onclick="abrirModal(this)"
+        data-nombre="Leonid Luminosity" 
+        data-precio="S/.40" 
+        data-img="../img/trassure/luna.png" 
+        data-desc="Rarity: Mythical.">
+        <img src="../img/trassure/luna.png">
+        <h3>Luna</h3>
+        <p class="precio">S/.40</p>
+      </div>
+    </div>
+  </section>
+  <div id="modal" class="modal">
+    <div class="modal-contenido">
+      <button class="cerrar" onclick="cerrarModal()">✖</button>
+      <img id="modal-img" src="" alt="">
+      <h3 id="modal-nombre"></h3>
+      <p id="modal-precio"></p>
+      <p id="modal-desc"></p>
+    </div>
+  </div>
+  <script>
+    function abrirModal(card) {
+      document.getElementById("modal-img").src = card.getAttribute("data-img");
+      document.getElementById("modal-nombre").innerText = card.getAttribute("data-nombre");
+      document.getElementById("modal-precio").innerText = "Precio: " + card.getAttribute("data-precio");
+      document.getElementById("modal-desc").innerText = card.getAttribute("data-desc");
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function cerrarModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+    window.addEventListener("click", function (e) {
+      const modal = document.getElementById("modal");
+      if (e.target === modal) {
+        cerrarModal();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 body {
     display: flex;
     justify-content: center;
-    background-color: #1e022e;
+    background-color: #1a042a;
 }
 h1 {
     font-family: "Notable", serif;
@@ -226,22 +226,7 @@ h2 {
 .playlst-item:hover .alternate-description {
     display: block;
 }
-.sidebar{
-    height: 100%;
-    width: 0;
-    position:absolute;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    background-color: #220936;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-}
-.sidebar.active{
-    width: 300px;
-    margin-top: 1rem;
-}
+/*SIDEBAR*/
 .toggle-btn {
     position: fixed;
     left: 20px;
@@ -256,79 +241,151 @@ h2 {
     transition: 0.3s;
     font-family: "Faculty Glyphic", serif;
 }
-
 .toggle-btn:hover {
     background-color: #7000d8;
 }
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(220deg, #150224 0%, #3c075f 100%);
+  overflow-x: hidden;
+  transition: 0.4s ease;
+  z-index: 1001;
+  padding-top: 30px;
+}
 
+.sidebar.active {
+  width: 300px;
+}
+
+.sidebar-overlay {
+  font-family: "Faculty Glyphic", serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+/* NAV LINKS */
 .nav-link {
-    padding: 15px 20px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #ffffff;
-    display: block;
-    transition: 0.3s;
-    font-family: "Faculty Glyphic", serif;
+  font-family: "Faculty Glyphic", serif;
+  display: flex;
+  gap: 12px;
+  padding: 15px 25px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #e8e8f0;
+  transition: 0.3s;
+  font-family: "Faculty Glyphic", serif;
+  border-left: 3px solid transparent;
 }
 
 .nav-link:hover {
-    color: #ffc2ff;
-    background-color: #7000d8;
-    font-family: "Faculty Glyphic", serif;
-    font-size: 20px;
+  background: rgba(150, 63, 255, 0.466);
+  border-left: 3px solid #bb86fc;
+  color: #ffffff;
+  text-shadow: 0 0 8px #bb86fc;
+  cursor: pointer;
 }
 
+/* SECCIÓN DE REDES */
 .social-section {
-    padding: 20px;
-    border-top: 1px solid #ffc2ff;
-    margin-top: 20px;
-    font-family: "Faculty Glyphic", serif;
-}
-.section{
-    color: #ffffff;
-    margin-bottom: 20px;
-    padding-left: 15px;
-    font-family: "Faculty Glyphic", serif;
-    font-size: 20;
-}
-.social-section h2 {
-    color: #ffffff;
-    margin-bottom: 100px;
-    padding-left: 20px;
+  font-family: "Faculty Glyphic", serif;
+  margin-top: 10px;
+  border-top: 1px solid rgba(242, 179, 255, 0.2);
+  padding: 0px 10px;
 }
 
+.social-section h3 {
+  margin-top: 30px;
+  color: #e2c2ff;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+}
+
+/* ITEMS DE REDES */
 .social-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 25px;
-    transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0px;
+  border-radius: 8px;
+  transition: 0.3s;
 }
 
 .social-item:hover {
-    background-color: #7000d8;
-  }
+  background: rgba(150, 63, 255, 0.466);
+  transform: translateX(5px);
+  box-shadow: 0 0 10px rgba(219, 134, 252, 0.4);
+}
+
+/* ICONOS */
 .social-icon {
-    width: 50px;
-    height: 50px;
-    background-color: #1e022e00;
-    margin-right: 15px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
+  width: 50px;
+  height: 50px;
+  background-color: rgba(187, 134, 252, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
 
 .social-text {
-    color: #ffffff;
-    font-size: 16px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
 }
-.main-content {
-    margin-left: 0;
-    padding: 20px;
-    transition: margin-left 0.5s;
+.close-btn {
+  position: fixed;
+  top: 20px;
+  left: 310px; 
+  width: 40px;
+  height: 40px;
+  background: #7000d8;
+  border: none;
+  border-radius: 8px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1003;
+  opacity: 0; 
+  pointer-events: none; 
 }
 
-.main-content.shifted {
-    margin-left: 300px;
+.sidebar.active + .close-btn {
+  opacity: 1;
+  pointer-events: auto;
 }
+
+.close-btn:hover {
+  background: #6500c4;
+  transform: scale(1.05);
+}
+
 /* Componet-profile */
 .container {
     position: relative;
