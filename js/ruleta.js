@@ -19,8 +19,8 @@ function Mensaje() {
     SonidoFinal();
     
     swal({
-        title: "GANASTE",
-        text: " ¡ " + winningSegment.text + " !",
+        title: " ¡ " + winningSegment.text + " !",
+        text: "GANASTE",
         imageUrl: "../img/rat-rainbow.gif",
         showCancelButton: true,
         confirmButtonColor: "#6f1acf",
@@ -31,7 +31,7 @@ function Mensaje() {
     },
     function(isConfirm) {
         if (isConfirm) {
-            agregarPremioGanado(winningSegment.text);
+            //agregarPremioGanado(winningSegment.text);
         } else {
             $('#ListaElementos').val($('#ListaElementos').val().replace(winningSegment.text, ""));
             leerElementos();
@@ -61,8 +61,8 @@ function agregarPremioGanado(premio) {
 }
 
 function DibujarTriangulo() {
-    distanceX = 150;
-    distanceY = 50;
+    distanceX = 152;
+    distanceY = 10;
     ctx = wheelObject.ctx;
     ctx.strokeStyle = '#fffedf';
     ctx.fillStyle = '#000000';
@@ -70,7 +70,7 @@ function DibujarTriangulo() {
     ctx.beginPath();
     ctx.moveTo(distanceX + 170, distanceY + 5);
     ctx.lineTo(distanceX + 230, distanceY + 5);
-    ctx.lineTo(distanceX + 200, distanceY + 40);
+    ctx.lineTo(distanceX + 200, distanceY + 50);
     ctx.lineTo(distanceX + 171, distanceY + 5);
     ctx.stroke();
     ctx.fill();
@@ -102,9 +102,9 @@ function DibujarRuleta(ArregloElementos) {
     wheelObject = new Winwheel({
         'canvasId': 'Ruleta',
         'numSegments': ArregloElementos.length,
-        'outerRadius': 290,
-        'innerRadius': 3,
-        'lineWidth': 3,
+        'outerRadius': 330,
+        'innerRadius': 1,
+        'lineWidth': 2,
         'strokeStyle': '#fffedf',
         'segments': ArregloElementos,
         'textMargin': 25,
@@ -459,4 +459,41 @@ BAN (1 dia)`;
     }
     $('#ListaElementos').val(Elementos.join('\n'));
     leerElementos();
+}
+
+async function tickets_carmesi() {
+  const listaElementos = document.getElementById('ListaElementos');
+  listaElementos.value = "Cargando participantes...";
+
+  try {
+    // 📦 Cargar JSON desde /js/
+    const response = await fetch("../js/participantes.json");
+    const participantes = await response.json();
+
+    // 🔁 Generar lista de nombres repetidos según los tickets
+    const elementos = [];
+    participantes.forEach(p => {
+      for (let i = 0; i < p.tickets; i++) {
+        elementos.push(p.nombre);
+      }
+    });
+
+    // 🧠 Mezclar aleatoriamente (Fisher-Yates)
+    for (let i = elementos.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [elementos[i], elementos[j]] = [elementos[j], elementos[i]];
+    }
+
+    // ✍️ Colocar en el textarea
+    listaElementos.value = elementos.join('\n');
+
+    // 🔥 Ejecutar tu función leerElementos() si existe
+    if (typeof leerElementos === "function") {
+      leerElementos();
+    }
+
+  } catch (error) {
+    console.error("Error cargando o procesando participantes.json:", error);
+    listaElementos.value = "⚠️ Error al cargar /js/participantes.json";
+  }
 }

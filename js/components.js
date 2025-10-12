@@ -330,24 +330,86 @@ balde de KFC
 100 soles
 100 soles
 BAN (1 dia)
-            </textarea>
-            <br />
-            <div class="button-group">
-              <input type="button" onclick="mezclarElementos()" class="btn btn-danger btn-lg btn-block" value="Mezclar" />
-              <input id="spinButton" class="btn-block btn-lg btn btn-success" onclick="wheelObject.startAnimation(); this.disabled=true;" value="Girar" type="button"/>
+        </textarea>
+        <br />
+        <div class="button-group">
+          <input type="button" onclick="mezclarElementos()" class="btn btn-danger btn-lg btn-block" value="Mezclar" />
+          <input id="spinButton" class="btn-block btn-lg btn btn-success" onclick="wheelObject.startAnimation(); this.disabled=true;" value="Girar" type="button"/>
+          <input id="btnParticipantes" class="btn-dark btn-lg btn-block" onclick="abrirModalParticipantes()" value="Lista Participantes" type="button"/>
             </div>
             <div class="special-buttons">
-              <img src="../img/OgreMagi.webp" alt="Button 1" class="img-button" onclick="BaraOpcions()" style="cursor: pointer; width: 80px; margin: 20px 0px 10px 0px;">
-              <img src="../img/BarathrumSquare.webp" alt="Button 2" class="img-button" onclick="MulticastOpcion()" style="cursor: pointer; width: 80px; margin:20px 10px 10px 10px;">
-              <img src="../img/image_2025-04-09_191452607.webp" alt="Button 3" class="img-button" onclick="RulettesubsOpcion()" style="cursor: pointer; width: 80px; margin:20px 0px 10px 0px;">
+              <img src="../img/carmesi.webp" alt="Button 1" class="img-button" onclick="tickets_carmesi()" style="cursor: pointer; width: 80px; margin: 20px 0px 10px 0px;">
             </div>
+          </div>
         </div>
       </div>
-    </div>
-  `;
+ <div id="modalParticipantes" class="modal-participantes">
+        <div class="modal-content">
+          
+          <h4>Participantes</h4>
+          <div id="listaParticipantes" class="lista-participantes" style="margin-bottom:30px" ></div>
+          <input id="btnParticipantes" class="btn-light btn-lg btn-block" onclick="cerrarModalParticipantes()" value="Cerrar" type="button"/>
+        </div>
+        
+      </div>
+    `;
   }
 }
 
+customElements.define('options-list', OptionsList);
+
+async function abrirModalParticipantes() {
+  const modal = document.getElementById("modalParticipantes");
+  const contenedor = document.getElementById("listaParticipantes");
+  modal.style.display = "block";
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      cerrarModalParticipantes();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      cerrarModalParticipantes();
+    }
+  });
+
+  try {
+    const response = await fetch("../js/participantes.json");
+    const data = await response.json();
+    contenedor.innerHTML = "";
+
+    data.forEach(part => {
+      const card = document.createElement("div");
+      card.classList.add("participante-card");
+
+      if (part.tickets === 1) card.classList.add("resplandor-blanco");
+      else if (part.tickets === 2) card.classList.add("resplandor-azul");
+      else if (part.tickets >= 4) card.classList.add("resplandor-dorado");
+
+      card.innerHTML = `
+        <h4>${part.nombre}</h4>
+        <p id="text_ticket">Tickets: ${part.tickets}</p>
+        <p id="text_steam">Id Steam: ${part.id_steam}</p>
+      `;
+      contenedor.appendChild(card);
+    });
+  } catch (error) {
+    contenedor.innerHTML = "<p style='color:red;'>Error al cargar el archivo JSON</p>";
+    console.error("Error cargando participantes:", error);
+  }
+}
+
+function cerrarModalParticipantes() {
+  const modal = document.getElementById("modalParticipantes");
+  if (modal) modal.style.display = "none";
+}
+/*<div class="special-buttons">
+  <img src="../img/OgreMagi.webp" alt="Button 1" class="img-button" onclick="BaraOpcions()" style="cursor: pointer; width: 80px; margin: 20px 0px 10px 0px;">
+  <img src="../img/BarathrumSquare.webp" alt="Button 2" class="img-button" onclick="MulticastOpcion()" style="cursor: pointer; width: 80px; margin:20px 10px 10px 10px;">
+  <img src="../img/image_2025-04-09_191452607.webp" alt="Button 3" class="img-button" onclick="RulettesubsOpcion()" style="cursor: pointer; width: 80px; margin:20px 0px 10px 0px;">
+</div>*/
 class ResultsList extends HTMLElement {
   constructor() {
       super();

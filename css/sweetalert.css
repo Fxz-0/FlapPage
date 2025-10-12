@@ -997,55 +997,169 @@ h4{
   color: rgb(0, 0, 0);
   font-family: "Faculty Glyphic", sans-serif;
 }
-body{
-  background-color: #260142;}
+body {
+  background-color: #260142;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
 
+/* MAIN CONTENT - SIN DESPLAZAMIENTO */
 .main-content {
-  margin-left: 0;
+  margin-left: 0 !important; /* Forzar que NO se mueva */
   padding: 20px;
-  transition: margin-left 0.5s;
+  min-height: 100vh;
+  position: relative;
 }
 
+/* Eliminar el desplazamiento cuando sidebar está activo */
 .main-content.shifted {
-  margin-left: 300px;
-}
-@media (max-width: 768px) {
-  .sidebar.active {
-      width: 100%;
-  }
-  .main-content.shifted {
-      margin-left: 0;
-  }
-}
-.right-image-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 5rem;
+  margin-left: 0 !important; /* NO mover el contenido */
 }
 
-.right-image {
+#main {
+  margin-left: 0 !important;
+}
+
+#main.shifted {
+  margin-left: 0 !important; /* NO mover el contenido */
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px; /* Oculto por defecto */
+  width: 300px;
+  height: 100%;
+  background-color: #1a0129;
+  transition: left 0.5s ease;
+  z-index: 1000; /* Por encima de todo */
+  overflow-y: auto;
+}
+
+.sidebar.active {
+  left: 0; /* Se muestra sobre el contenido */
+}
+
+/* Botón toggle */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1001;
+  background-color: #6a1b9a;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.toggle-btn:hover {
+  background-color: #8e24aa;
+}
+
+/* Overlay oscuro cuando sidebar está abierto (opcional) */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: none;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* Contenedor de la página */
+.page-container {
+  width: 100%;
   max-width: 100%;
-  height: auto;
-  object-fit: contain;
+  margin: 0;
+  padding: 0;
 }
 
-.custom-grid {
-  display: grid;
-  grid-template-columns: 25% 50% 25%;
-  gap: 1rem;
-  margin-top: 8rem;
-  margin-left: 2rem;
-  margin-right: 2rem;
+/* Título centrado y arriba - ESTÁTICO */
+.title-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #260142;
+  z-index: 100;
+  padding: 1rem 0;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+.title-container h1 {
+  font-family: "Faculty Glyphic", sans-serif;
+  color: #fff;
+  margin: 0;
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+/* Contenedor principal - ESTÁTICO */
+.content-container {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  padding-top: 100px;
+}
+
+/* Lista a la IZQUIERDA - ESTÁTICA */
+.options-wrapper {
+  position: absolute;
+  left: 20px;
+  top: 120px;
+  width: 350px;
+  max-width: 350px;
+  z-index: 10;
+}
+
+/* Ruleta EXACTAMENTE EN EL CENTRO - ESTÁTICA */
+.roulette-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  width: auto;
+  max-width: 700px;
+}
+
+/* NO ajustar posiciones cuando sidebar está abierto */
+#main.shifted .roulette-wrapper {
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+#main.shifted .options-wrapper {
+  left: 20px !important;
+}
+
+/* Contenedor de la ruleta */
 .roulette-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
 }
 
 #canvasContainer {
@@ -1059,9 +1173,12 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 auto;
 }
 
 canvas#Ruleta {
+  display: block;
+  margin: 0 auto;
   max-width: 100%;
   height: auto;
 }
@@ -1074,13 +1191,17 @@ canvas#Ruleta {
 }
 
 .button-container input {
-  width: 50%;
+  width: 200px;
   font-size: 1.2rem;
+  padding: 10px 20px;
 }
 
-options-card {
+/* Tarjeta de opciones */
+.options-card {
   width: 100%;
-  max-width: 350px;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .options-card .card {
@@ -1100,26 +1221,31 @@ options-card {
 .special-buttons {
   display: flex;
   justify-content: center;
+  gap: 10px;
   margin-top: 10px;
 }
 
 .img-button {
   transition: transform 0.2s;
+  cursor: pointer;
 }
 
 .img-button:hover {
   transform: scale(1.1);
 }
+
+/* Tarjeta de resultados/premios */
 .results-card {
   width: 100%;
-  max-width: 350px;
   font-family: "Faculty Glyphic", sans-serif;
   color: black;
 }
+
 .premios-list {
-  max-height: 300px;
+  max-height: 400px;
   overflow-y: auto;
   font-family: "Faculty Glyphic", sans-serif;
+  padding: 10px;
 }
 
 .premio-item {
@@ -1127,6 +1253,9 @@ options-card {
   justify-content: space-between;
   padding: 10px;
   border-bottom: 1px solid #eee;
+  background: white;
+  margin-bottom: 5px;
+  border-radius: 5px;
 }
 
 .premio-texto {
@@ -1137,83 +1266,214 @@ options-card {
   font-size: 0.8rem;
   color: #666;
 }
-@media (max-width: 1200px) {
-  .content-container {
-      flex-direction: column;
-      align-items: center;
-  }
-  
-  .roulette-container, .options-card, .results-card {
-      order: 0;
-      margin-bottom: 20px;
-  }
-}
-@media (max-width: 768px) {
-  h1 {
-      font-size: 1.8rem;
-  }
-  
-  /* Orden para dispositivos móviles */
-  .roulette-container {
-      order: 1;
-  }
-  
-  .options-card {
-      order: 2;
-  }
-  
-  .results-card {
-      order: 3;
-  }
-  
-  canvas#Ruleta {
-      max-width: 100%;
-      height: auto;
-  }
-  
-  .button-container input {
-      width: 80%;
-  }
-}
-@media (max-width: 480px) {
-  h1 {
-      font-size: 1.5rem;
-  }
-  
-  .page-container {
-      padding: 0.5rem;
-  }
-  
-  .button-container input {
-      width: 100%;
-  }
-}
+
 .elemento {
   overflow-y: scroll; 
   overflow-x: hidden; 
 }
 
-#main.shifted {
-  margin-left: 250px;
-}
+/* Tablets */
+@media (max-width: 1200px) {
+  .options-wrapper {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+  }
 
-@media (max-width: 768px) {
-  #main.shifted {
-      margin-left: 0;
-      padding-top: 60px;
+  .roulette-wrapper {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 30px auto;
+    max-width: 600px;
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
   }
 }
-.page-container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem;
+
+/* Móviles */
+@media (max-width: 768px) {
+  .sidebar.active {
+    width: 100%;
+  }
+
+  .title-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 10px 20px 10px;
+  }
+
+  .roulette-wrapper { 
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    order: 1;
+    max-width: 100%;
+    margin: 20px auto;
+  }
+
+  .options-wrapper { 
+    position: relative;
+    left: 0;
+    top: 0;
+    order: 2;
+    max-width: 100%;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  canvas#Ruleta {
+    max-width: 90vw;
+    height: auto;
+  }
+
+  .button-container input {
+    width: 80%;
+  }
 }
 
-.content-container {
+/* Móviles pequeños */
+@media (max-width: 480px) {
+  .title-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .button-container input {
+    width: 100%;
+  }
+
+  canvas#Ruleta {
+    max-width: 95vw;
+  }
+}
+/* ===========================
+   🎨 MODAL DE PARTICIPANTES
+=========================== */
+.modal-participantes {
+  display: none;
+  position: fixed;
+  z-index: 3000;
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(0,0,0,0.5);
+  font-family: "Faculty Glyphic", sans-serif;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  background-color: #1c1026;
+  margin: auto;
+  padding: 25px 35px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 900px;
+    box-shadow: 0 0 25px rgba(187, 134, 252, 0.7);
+  position: relative;
+  animation: zoomIn 0.25s ease;
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.9); opacity: 0.5; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ✅ Botón Close visible dentro del modal */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 35px;
+  height: 35px;
+  background-color: #222;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: #555;
+}
+
+.close-x {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.lista-participantes {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 15px;
   justify-content: center;
+  margin-top: 30px;
+}
+
+/* Tarjetas horizontales */
+.participante-card {
+  flex: 0 1 200px;
+  margin: 5px 10px;
+  padding:15px 15px;
+  background-color: #440e77;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.participante-card:hover {
+  transform: scale(1.05);
+}
+
+/* ✨ Resplandores según número de tickets */
+.resplandor-blanco {
+  box-shadow: 0 0 10px 3px rgba(212, 212, 212, 0.699);
+}
+
+.resplandor-azul {
+  box-shadow: 0 0 10px 3px #2a63ff;
+}
+
+.resplandor-dorado {
+  box-shadow: 0 0 10px 3px rgb(255, 196, 0);
+}
+
+#text_ticket{
+  color: white;
+  font-size: 16px;
+  font-family: "Faculty Glyphic", sans-serif;
+}
+#text_steam{
+  color: white;
+  font-size: 12px;
   font-family: "Faculty Glyphic", sans-serif;
 }
