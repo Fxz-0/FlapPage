@@ -343,15 +343,35 @@ BAN (1 dia)
           </div>
         </div>
       </div>
- <div id="modalParticipantes" class="modal-participantes">
-        <div class="modal-content">
-          
-          <h4>Participantes</h4>
-          <div id="listaParticipantes" class="lista-participantes" style="margin-bottom:30px" ></div>
-          <input id="btnParticipantes" class="btn-light btn-lg btn-block" onclick="cerrarModalParticipantes()" value="Cerrar" type="button"/>
-        </div>
-        
-      </div>
+<div id="modalParticipantes" class="modal-participantes">
+  <div class="modal-content">
+    
+    <!-- Header con título y botón close -->
+    <div class="modal-header">
+      <button class="close-btn" onclick="cerrarModalParticipantes()">
+        <span class="close-x">×</span>
+      </button>
+      <h4>Participantes</h4>
+    </div>
+    
+    <!-- Body con lista de participantes -->
+    <div class="modal-body">
+      <div id="listaParticipantes" class="lista-participantes"></div>
+    </div>
+    
+    <!-- Footer con botón cerrar -->
+    <div class="modal-footer">
+      <input 
+        id="btnParticipantes" 
+        class="btn-light btn-lg btn-block" 
+        onclick="cerrarModalParticipantes()" 
+        value="Cerrar" 
+        type="button"
+      />
+    </div>
+    
+  </div>
+</div>
     `;
   }
 }
