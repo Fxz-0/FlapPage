@@ -1659,3 +1659,342 @@ canvas#Ruleta {
     font-size: 1rem;
   }
 }
+
+
+/* ===========================
+   RESPONSIVE FLUID SCALING
+=========================== */
+
+/* Contenedor principal que escala proporcionalmente */
+.page-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    transform-origin: center center;
+}
+
+/* Título que se escala con la ventana */
+.title-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #260142;
+    z-index: 100;
+    padding: clamp(0.5rem, 2vw, 2rem) 0;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.title-container h1 {
+    font-family: "Faculty Glyphic", sans-serif;
+    color: #fff;
+    margin: 0;
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Contenedor principal escalable */
+.content-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding-top: clamp(60px, 8vh, 120px);
+    transform-origin: center center;
+}
+
+/* Lista de opciones - escalable pero mantiene posición relativa */
+.options-wrapper {
+    position: absolute;
+    left: clamp(10px, 2vw, 30px);
+    top: clamp(80px, 12vh, 140px);
+    width: clamp(280px, 25vw, 400px);
+    max-width: 25vw;
+    z-index: 10;
+    transform-origin: top left;
+}
+
+/* Ruleta centrada - escalable */
+.roulette-wrapper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-30%, -30%) scale(clamp(0.4, 1vw + 1vh, 1.2));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    width: auto;
+    transform-origin: center center;
+}
+
+/* Canvas de la ruleta escalable */
+#canvasContainer {
+    background-image: url(../img/Muerte.png);
+    background-repeat: no-repeat;  
+    background-position: center;
+    background-size: 1px; 
+    width: clamp(300px, 40vw, 700px);
+    height: clamp(300px, 40vw, 700px);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+canvas#Ruleta {
+    display: block;
+    margin: 0 auto;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Botones escalables */
+.button-container {
+    margin-top: clamp(10px, 2vh, 30px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.button-container input {
+    width: clamp(150px, 20vw, 250px);
+    font-size: clamp(0.9rem, 1.5vw, 1.4rem);
+    padding: clamp(8px, 1.5vh, 15px) clamp(15px, 2vw, 25px);
+}
+
+/* Tarjetas escalables */
+.options-card {
+    width: 100%;
+    border-radius: clamp(5px, 1vw, 15px);
+    padding: clamp(10px, 2vw, 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+}
+
+/* Textos escalables */
+h4 {
+    color: white;
+    font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+#h4-Area {
+    color: rgb(0, 0, 0);
+    font-family: "Faculty Glyphic", sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+}
+
+/* Textarea escalable */
+textarea {
+    font-size: clamp(0.8rem, 1.2vw, 1rem) !important;
+    min-height: clamp(200px, 25vh, 400px);
+}
+
+/* Botones especiales escalables */
+.special-buttons {
+    display: flex;
+    justify-content: center;
+    gap: clamp(5px, 1vw, 15px);
+    margin-top: clamp(5px, 1vh, 15px);
+}
+
+.img-button {
+    transition: transform 0.2s;
+    cursor: pointer;
+    width: clamp(30px, 4vw, 50px);
+    height: clamp(30px, 4vw, 50px);
+}
+
+/* Lista de premios escalable */
+.results-card {
+    width: 80%;
+    font-family: "Faculty Glyphic", sans-serif;
+    color: black;
+    font-size: clamp(0.8rem, 1.2vw, 1rem);
+}
+
+.premios-list {
+    max-height: clamp(200px, 30vh, 500px);
+    overflow-y: auto;
+    font-family: "Faculty Glyphic", sans-serif;
+    padding: clamp(5px, 1vw, 15px);
+}
+
+.premio-item {
+    display: flex;
+    justify-content: space-between;
+    padding: clamp(5px, 1vw, 12px);
+    border-bottom: 1px solid #eee;
+    background: white;
+    margin-bottom: clamp(3px, 0.5vh, 8px);
+    border-radius: clamp(3px, 0.5vw, 8px);
+    font-size: clamp(0.8rem, 1.1vw, 1rem);
+}
+
+/* Modal escalable */
+.modal-participantes {
+    padding: clamp(10px, 2vw, 30px);
+}
+
+.modal-content {
+    margin: clamp(20px, 5vh, 80px) auto;
+    padding: 0;
+    border-radius: clamp(10px, 2vw, 25px);
+    width: clamp(300px, 85vw, 1200px);
+    max-width: 90vw;
+    max-height: 85vh;
+}
+
+.modal-header {
+    padding: clamp(15px, 3vw, 35px);
+}
+
+.modal-header h4 {
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+}
+
+.modal-body {
+    padding: clamp(15px, 3vw, 35px);
+    max-height: 60vh;
+}
+
+.lista-participantes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(150px, 20vw, 280px), 1fr));
+    gap: clamp(10px, 2vw, 25px);
+}
+
+.participante-card {
+    padding: clamp(10px, 2vw, 25px);
+    border-radius: clamp(8px, 1.5vw, 18px);
+}
+
+#text_ticket {
+    font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+}
+
+#text_steam {
+    font-size: clamp(0.7rem, 1.2vw, 1rem);
+}
+
+/* Sidebar escalable */
+.sidebar {
+    width: clamp(250px, 25vw, 350px);
+}
+
+.sidebar.active {
+    width: clamp(250px, 25vw, 350px);
+}
+
+.nav-link {
+    padding: clamp(10px, 2vh, 18px) clamp(15px, 3vw, 30px);
+    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+}
+
+.social-section h3 {
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+}
+
+.social-text {
+    font-size: clamp(0.8rem, 1.3vw, 1.1rem);
+}
+
+/* Toggle button escalable */
+.toggle-btn {
+    position: fixed;
+    top: clamp(15px, 3vh, 25px);
+    left: clamp(15px, 3vw, 25px);
+    padding: clamp(8px, 1.5vh, 12px) clamp(12px, 2vw, 18px);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+}
+
+/* Ajustes para ventanas muy pequeñas */
+@media (max-width: 480px) and (max-height: 600px) {
+    .options-wrapper {
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 95%;
+        margin: 10px auto;
+        order: 2;
+    }
+    
+    .roulette-wrapper {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: scale(0.7);
+        order: 1;
+        margin: 10px auto;
+    }
+    
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 60px 10px 10px;
+    }
+}
+
+/* Ajustes para ventanas muy anchas */
+@media (min-width: 1920px) {
+    .options-wrapper {
+        left: clamp(30px, 3vw, 60px);
+        width: clamp(350px, 20vw, 450px);
+    }
+    
+    .roulette-wrapper {
+        transform: translate(-50%, -50%) scale(clamp(0.8, 0.8vw + 0.5vh, 1.4));
+    }
+}
+
+/* Ajustes para ventanas muy altas */
+@media (min-height: 1080px) {
+    .title-container {
+        padding: clamp(1rem, 3vh, 3rem) 0;
+    }
+    
+    .options-wrapper {
+        top: clamp(120px, 15vh, 180px);
+    }
+}
+
+/* Mantener proporciones en pantallas ultrawide */
+@media (min-aspect-ratio: 21/9) {
+    .roulette-wrapper {
+        transform: translate(-50%, -50%) scale(clamp(0.6, 0.5vw + 0.8vh, 1.1));
+    }
+    
+    .options-wrapper {
+        left: clamp(50px, 5vw, 100px);
+        width: clamp(300px, 18vw, 400px);
+    }
+}
+
+/* Evitar que el contenido se mueva cuando el sidebar está activo */
+#main.shifted .roulette-wrapper {
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(clamp(0.4, 1vw + 1vh, 1.2)) !important;
+}
+
+#main.shifted .options-wrapper {
+    left: clamp(10px, 2vw, 30px) !important;
+}
+
+#main.shifted .title-container {
+    left: 0 !important;
+    right: 0 !important;
+}
+
+
