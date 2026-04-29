@@ -386,69 +386,45 @@ BASH`;
 
 function RulettesubsOpcion() {
     const options3 =
-`1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-1000 puntos
-1000 puntos
-1000 puntos
-1000 puntos
-1000 puntos
-1000 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-4000 puntos
-4000 puntos
-desayuno en Tambo
-desayuno en Tambo
-desayuno en Tambo
-5 soles
-5 soles
-5 soles
-5 soles
-5 soles
-5 soles
-tu menú
-tu menú 
-10 soles
-10 soles
-10 soles
-10 soles
-entrada Valetodo
-balde de KFC
-50 soles
-50 soles
-50 soles
-100 soles
-100 soles
-BAN (1 dia)`;
+`nada
+nada
+nada
+nada
+1 Bola de pelo de mi gato
+nada
+nada
+nada
+nada
+10 centimos
+1 millon de soles
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+1 foto de Tao calato
+nada
+nada
+nada
+1 terreno en Miami
+nada
+nada
+nada
+1 BMW z8 2026 0km
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+nada`;
     document.getElementById('ListaElementos').value = options3;
     let txtListaElementos = $('#ListaElementos').val().trim();
     let Elementos = txtListaElementos.split('\n');
