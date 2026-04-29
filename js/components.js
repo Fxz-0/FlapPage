@@ -268,77 +268,55 @@ class OptionsList extends HTMLElement {
             <h4 class="card-title">Lista de elementos:</h4>  
             <textarea id="ListaElementos" class="form-control" rows="13">
 1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-1 sol
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-2 soles
-1000 puntos
-1000 puntos
-1000 puntos
-1000 puntos
-1000 puntos
-1000 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-1500 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-2000 puntos
-4000 puntos
-4000 puntos
-desayuno en Tambo
-desayuno en Tambo
-desayuno en Tambo
-5 soles
-5 soles
-5 soles
-5 soles
-5 soles
-5 soles
-tu menú
-tu menú 
-10 soles
-10 soles
-10 soles
-10 soles
-entrada Valetodo
-balde de KFC
-50 soles
-50 soles
-50 soles
-100 soles
-100 soles
-BAN (1 dia)
+nada
+10 Centimos
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+1 millon de soles
+nada
+nada
+nada
+nada
+1 Foto de Tao Calato
+nada
+nada
+nada
+nada
+nada
+nada
+1 terreno en Miami
+nada
+nada
+nada
+1 BMW z8 2026 0km
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+1 bola de pelo de mi gato
+nada
+nada
+nada
+nada
+nada
+nada
+nada
+Ban 1 dia
         </textarea>
         <br />
         <div class="button-group">
           <input type="button" onclick="mezclarElementos()" class="btn btn-danger btn-lg btn-block" value="Mezclar" />
           <input id="spinButton" class="btn-block btn-lg btn btn-success" onclick="wheelObject.startAnimation(); this.disabled=true;" value="Girar" type="button"/>
           <input id="btnParticipantes" class="btn-dark btn-lg btn-block" onclick="abrirModalParticipantes()" value="Lista Participantes" type="button"/>
-            </div>
-            <div class="special-buttons">
-              <img src="../img/carmesi.webp" alt="Button 1" class="img-button" onclick="tickets_carmesi()" style="cursor: pointer; width: 80px; margin: 20px 0px 10px 0px;">
             </div>
           </div>
         </div>
