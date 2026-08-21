@@ -442,34 +442,25 @@ async function tickets_carmesi() {
   listaElementos.value = "Cargando participantes...";
 
   try {
-    // 📦 Cargar JSON desde /js/
     const response = await fetch("../js/participantes.json");
     const participantes = await response.json();
-
-    // 🔁 Generar lista de nombres repetidos según los tickets
     const elementos = [];
     participantes.forEach(p => {
       for (let i = 0; i < p.tickets; i++) {
         elementos.push(p.nombre);
       }
     });
-
-    // 🧠 Mezclar aleatoriamente (Fisher-Yates)
     for (let i = elementos.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [elementos[i], elementos[j]] = [elementos[j], elementos[i]];
     }
-
-    // ✍️ Colocar en el textarea
     listaElementos.value = elementos.join('\n');
-
-    // 🔥 Ejecutar tu función leerElementos() si existe
     if (typeof leerElementos === "function") {
       leerElementos();
     }
 
   } catch (error) {
     console.error("Error cargando o procesando participantes.json:", error);
-    listaElementos.value = "⚠️ Error al cargar /js/participantes.json";
+    listaElementos.value = "Error al cargar /js/participantes.json";
   }
 }
