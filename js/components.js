@@ -494,7 +494,7 @@ customElements.define('portada-component', PortadaComponent);
 document.addEventListener("DOMContentLoaded", function () {
   const videos = document.querySelectorAll("portada-component video");
   videos.forEach(video => {
-    video.muted = true; // Asegúrate de que esté silenciado
+    video.muted = true;
     video.play().catch(error => {
         console.error("El video no pudo reproducirse automáticamente:", error);
     });
