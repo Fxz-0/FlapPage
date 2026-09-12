@@ -454,16 +454,14 @@ async function tickets_carmesi() {
       }
     });
 
-    // 🧠 Mezclar aleatoriamente (Fisher-Yates)
     for (let i = elementos.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [elementos[i], elementos[j]] = [elementos[j], elementos[i]];
     }
 
-    // ✍️ Colocar en el textarea
     listaElementos.value = elementos.join('\n');
 
-    // 🔥 Ejecutar tu función leerElementos() si existe
+
     if (typeof leerElementos === "function") {
       leerElementos();
     }

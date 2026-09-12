@@ -1,0 +1,205 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+:root{
+    /* Purple */
+    --purple-10: #f4eeff;
+    --purple-20: #e5d7ff;
+    --purple-30: #d0b3ff;
+    --purple-40: #bd90fd;
+    --purple-50: #ab70f6;
+    --purple-60: #8928df;
+    --purple-70: #6e00bc;
+    --purple-80: #4d0088;
+    --purple-90: #300059;
+    --purple-100: #1a042a;
+    --purple-gray: #2d2331;
+    /* gold */
+    --gold-50: #fffef1;
+    --gold-100: #fdf1c8;
+    --gold-400: #ffd100;
+    --gold-700: #584300;
+    /*gray*/
+    --gray-100: #2e2e2e;
+}
+
+body{
+    background-color: var(--purple-100);
+    color: var(--gold-50);
+}
+h2{
+    margin: 0;
+}
+/*Navbar*/
+.navbar{
+    background-color: var(--purple-90);
+    display: flex;
+    justify-content: space-between;
+}
+.nav-item{
+    list-style: none;
+    /*padding: 10px 10px;*/
+}
+.nav-link{
+    font-family: 'Faculty Glyphic', sans-serif;
+    background-color: var(--purple-90);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    color: var(--gold-100);
+    margin: 0;
+    padding: 10px 30px;
+}
+.nav-link:hover{
+    background-color: var(--purple-70);
+    color: var(--gold-10);
+    box-shadow: 0px 0px 10px var(--purple-100);
+    transform: scale(1.1);
+}
+.navbar-nav{
+    height: 4rem;
+    align-items: center;
+}
+.nav-link-div{
+    width: 7rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.logo{
+    width: 100%;
+    height: 3rem;
+    padding: 5px 25px;
+}
+/* section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-family: 'Faculty Glyphic', sans-serif;
+    background: linear-gradient(147deg,rgba(26, 4, 42, 1) 0%, rgba(110, 0, 188, 1) 25%, rgba(77, 0, 136, 1) 50%, rgba(110, 0, 188, 1) 75%, rgba(26, 4, 42, 1) 100%);
+}
+.chip{
+    height: 100%;
+    width: 20rem;
+    z-index: 1;
+}
+.bones-city{
+    height: 100%;
+    width: 25rem;
+    z-index: 1;
+} */
+.bones-banner{
+    background-image: url('../img/caisno-fondo.jpg');
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    opacity: .55;
+    background-size: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    mask-image: linear-gradient(to bottom, black 95%, rgba(0, 0, 0, 0));
+}
+.bones-banner-add{
+    pointer-events: none;
+    width: 100%;
+    height: 500px;
+    z-index: 1;
+    position: relative;
+    margin-bottom: -275px;
+    -webkit-mask-image: linear-gradient(to top, transparent 25%, black 100%);
+    mask-image: linear-gradient(to top, transparent 25%, black 100%);
+}
+.logo-banner{
+    width: 40%;
+    height: 100%;
+    position: relative;
+    margin-bottom: 3rem;
+}
+.texture{
+    background-image: url('../img/recursos/fondo.webp');
+    width: 100%;
+    position: relative;
+    background-color: var(--purple-100);
+    
+}
+.references{
+    font-family: 'Faculty Glyphic', sans-serif;
+    position: relative;
+    color: var(--gold-100);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    user-select: none;
+    text-shadow: 0px 0px 4px #000;
+    z-index: 200;
+}
+.title{
+    padding: 0px 18vw;
+    position: relative;
+    font-size: 60px;
+    line-height: 115%;
+    text-align: center;
+    font-family: "Reaver", serif;
+    color: var(--gold-100);
+    font-weight: 700;
+    z-index: 10;
+    text-shadow: 0px 0px 10px #000, 0px 0px 5px #000;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.date{
+    font-size: 20px;
+    color: var(--gold-50);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    z-index: 10;
+}
+.content{
+    color: var(--gold-50);
+    padding: 0px 50px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 22px;
+    line-height: 150%;
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-weight: lighter;
+    letter-spacing: .5px;
+    z-index: 10;
+}
+.patch-info{
+    padding: 10px;
+    margin: 5px;
+    z-index: 10;
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.25rem;
+}
+.patch-article{
+    background-color:var(--purple-70);
+}
+.patch-article-title{
+    padding: 10px 16px;
+    box-shadow:0px 0px 10px var(--purple-100),
+                inset 0px 0px 10px var(--purple-90);
+    align-items: center;
+    display: flex;
+}
+.patch-article-content{
+    background: linear-gradient(to right, var(--purple-gray), var(--gray-100));
+    color: var(--gold-50);
+    padding: 20px;
+}
