@@ -5,8 +5,8 @@ class LateralBarA extends HTMLElement {
 
       <div class="sidebar" id="sidebar">
         <nav class="sidebar-nav">
-            ${this.navItem("Inicio", "/FlapPage/")}
-            ${this.navItem("Playlist", "/FlapPage/Playlist/")}
+            ${this.navItem("Inicio", "/")}
+            ${this.navItem("Playlist", "/Playlist/")}
             ${this.navItem("Discord", "https://discord.gg/euf5vbppCC")}
         </nav>
         <div class="social-section">
@@ -86,8 +86,8 @@ class LateralBarB extends HTMLElement {
 
       <div class="sidebar" id="sidebar">
         <nav class="sidebar-nav">
-            ${this.navItem("Inicio", "/FlapPage/")}
-            ${this.navItem("Ruleta", "/FlapPage/Ruleta/")}
+            ${this.navItem("Inicio", "/")}
+            ${this.navItem("Ruleta", "/Ruleta/")}
             ${this.navItem("Discord", "https://discord.gg/euf5vbppCC")}
         </nav>
         <div class="social-section">
@@ -204,8 +204,8 @@ class LateralBarD extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <div class="sidebar" id="sidebar">
-        <a href="/FlapPage/" class="nav-link">Inicio</a>
-        <a href="/FlapPage/Playlist/" class="nav-link">Playlist</a>
+        <a href="/" class="nav-link">Inicio</a>
+        <a href="/Playlist/" class="nav-link">Playlist</a>
         <a href="https://discord.gg/euf5vbppCC" class="nav-link">Discord</a>
 
         <div class="social-section">
