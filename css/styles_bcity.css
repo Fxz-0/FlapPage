@@ -190,6 +190,7 @@ h2{
 }
 .patch-article{
     background-color:var(--purple-70);
+    margin-bottom: 20px;
 }
 .patch-article-title{
     padding: 10px 16px;
@@ -202,4 +203,11 @@ h2{
     background: linear-gradient(to right, var(--purple-gray), var(--gray-100));
     color: var(--gold-50);
     padding: 20px;
+}
+.patch-tb, .patch-tb-f, th{
+  border-color: var(--gold-10);
+  border: 2px solid var(--purple-30);
+  padding: 3px;
+  justify-content: center;
+  text-align: center;
 }
