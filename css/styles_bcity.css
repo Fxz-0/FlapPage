@@ -190,7 +190,7 @@ h2{
 }
 .patch-article{
     background-color:var(--purple-70);
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 .patch-article-title{
     padding: 10px 16px;
@@ -204,10 +204,32 @@ h2{
     color: var(--gold-50);
     padding: 20px;
 }
-.patch-tb, .patch-tb-f, th{
+.patch-tb, .patch-tb-f, th, td{
   border-color: var(--gold-10);
-  border: 2px solid var(--purple-30);
-  padding: 3px;
+  border: 2px solid var(--purple-50);
+  padding: 5px 20px;
   justify-content: center;
   text-align: center;
+}
+.patch-article-table{
+    Justify-content: center;
+    align-items: center;
+    display: flex;
+}
+p{
+    font-size: 1.25rem;
+}
+.bone-input{
+    background-color: var(--purple-10);
+    border: 2px solid var(--purple-50);
+    color: var(--gold-700);
+    padding: 5px 15px;
+    margin-top: 20px;
+}
+.bone-button{
+    background-color: var(--purple-70);
+    border: none;
+    color: var(--gold-100);
+    padding: 5px 15px;
+    margin-top: 20px;
 }

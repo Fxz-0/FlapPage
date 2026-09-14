@@ -20,22 +20,22 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <div class="nav-link-div">
-                        <a class="nav-link" href="#">Principal</a>
+                        <a class="nav-link" href="/">Principal</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link-div">
-                        <a class="nav-link" href="#">Puntos</a>
+                        <a class="nav-link" href="#p">Puntos</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link-div">
-                        <a class="nav-link" href="#">Apuestas</a>
+                        <a class="nav-link" href="#apuestas">Apuestas</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <div class="nav-link-div">
-                        <a class="nav-link" href="#">Preguntas</a>
+                        <a class="nav-link" href="#calculadora">Calculadora</a>
                     </div>
                 </li>
             </ul>
@@ -73,10 +73,11 @@
                 Huesos Company ® agradece a todos los dibujitos que confían en nuestro trabajo
                 y a aquellos que deciden invertir su dinero en Bones City.
             </p>
-            <a class="references" href="#">Ver nuevo sistema de puntos</a>
-
+            <!-- <a class="references" href="#">Ver nuevo sistema de puntos</a> -->
+            <br>
+            <br>
             <div class="patch-articles">
-                <article class="patch-article">
+                <article id="p" class="patch-article">
                     <div class="patch-article-title">
                         <h2>¿Qué pasó con los puntos?</h2>
                     </div>
@@ -89,7 +90,7 @@
                             panaderos. Ahora tus puntos tienen valor monetario.
                         </p>
                         <p>
-                            Podrás comprar puntos y podrás canjear esos puntos directamente por dinero.
+                            Podrás comprar puntos y podrás canjearlos directamente por dinero.
                         </p>
                         <p>
                             Dibujito, tendrás que predecir correctamente en las bets que se abran
@@ -97,16 +98,15 @@
                         </p>
                     </div>
                 </article>
-
                 <article class="patch-article">
                     <div class="patch-article-title">
-                        <h2>¿Cómo obtengo puntos?</h2>
+                        <h2>Ahora, ¿Cómo obtengo puntos?</h2>
                     </div>
 
                     <div class="patch-article-content">
                         <p>
-                            Los puntos ya no se obtienen viendo el stream; ahora los puntos se
-                            adquieren a través de suscripciones.
+                            Los puntos ya no se obtienen con solo ver el stream; ahora los puntos se
+                            adquieren a comprandolos directamente, subscripcion y donacion de kicks.
                         </p>
 
                         <div class="patch-article-table">
@@ -117,19 +117,18 @@
                                         <th scope="col">Cantidad de puntos</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
                                     <tr class="patch-tb-f">
                                         <td>Suscripción</td>
                                         <td>200 puntos</td>
                                     </tr>
                                     <tr class="patch-tb-f">
-                                        <td>Kicks</td>
-                                        <td>100 puntos</td>
+                                        <td>100 Kicks</td>
+                                        <td>250 puntos</td>
                                     </tr>
                                     <tr class="patch-tb-f">
-                                        <td>Yape</td>
-                                        <td>500 puntos</td>
+                                        <td>Yape (10 soles)</td>
+                                        <td>1000 puntos</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -137,65 +136,71 @@
                     </div>
                 </article>
 
-                <article class="patch-article">
+                <article id="apuestas" class="patch-article">
                     <div class="patch-article-title">
                         <h2>¿Cómo funcionan las predicciones/bets del stream?</h2>
                     </div>
 
                     <div class="patch-article-content">
-                        <ul>
-                            <li>
                                 Ustedes apuestan sus puntos del canal a una opción, por ejemplo:
-                                "¿Gana A o B?". Cada opción junta su propio pozo. Si A tiene
-                                10,000 puntos y B tiene 5,000, el pozo total es de 15,000.
+                                <br>
+                                "¿Gana Flap si o no?". Cada opción junta su propio pozo. Si "si" tiene
+                                10,000 puntos y "no" tiene 5,000, el pozo total es de 15,000.
                                 La cuota depende de cuánto hay en cada lado.
-                            </li>
-
+                                <br>
+                                En este ejemplo, votaiones al "si" tiene 10k de los 15k totales.
+                        <ul>  
                             <li>
-                                En este ejemplo, A tiene 10k de 15k → ~1.5x.
-                            </li>
-
-                            <li>
-                                B tiene 5k de 15k → ~3x.
-                            </li>
-
-                            <li>
-                                O sea, mientras menos gente apueste a una opción, más paga si gana.
-                            </li>
-
-                            <li>
-                                Si metiste 1,000 puntos a B y B gana con cuota 3x, recibirías
-                                aproximadamente 3,000 puntos (incluyendo tu apuesta, según cómo
-                                lo muestre Twitch).
-                            </li>
-
-                            <li>
-                                No es una cuota fija desde el comienzo: va cambiando conforme
-                                la gente mete puntos.
-                            </li>
-
-                            <li>
-                                Twitch, además, aplica sus propias reglas y redondeos para calcular
-                                los pagos y distribuir el pozo.
+                                Entonces la cuota para el "si" seria 'x1.5'
                             </li>
                         </ul>
+                            Si las votaciones al "no" tiene 5k de los 15k
+                        <ul>
+                            <li>
+                                Entonces la cuota para el "no" seria x3
+                            </li>
+                        </ul>
+                            Mientras menos gente apueste a una opción, más paga si gana.
+                            <br>
+                                Si metiste 1,000 puntos a "no" y el "no" gana con cuota 3x, recibirías aproximadamente 3,000 puntos (incluyendo tu apuesta).
+                            <br>
+                            <br>
+                                ¡No es una cuota fija! desde el comienzo, va cambiando conforme
+                                la gente mete puntos.
+                                Botrix, aplica redondeos para calcular los pagos y distribuir el pozo.
                     </div>
                 </article>
 
                 <article class="patch-article">
                     <div class="patch-article-title">
-                        <h2>REWORK de suscripciones</h2>
+                        <h2>Rework de suscripciones</h2>
                     </div>
 
                     <div class="patch-article-content">
                         <p>
-                            Ahora los suscriptores tienen nuevos beneficios.
-                            Huesos Company ® tiene para los suscriptores una tasa de retiro especial.
+                            Ahora los suscriptores tienen nuevos beneficios.<br>
+                            Huesos Company ® tiene para los suscriptores una tasa de retiro especial.<br>
+                            Retiro con 1.85
                         </p>
+                    </div>
+                </article>
+                <article class="patch-article">
+                    <div id="calculadora" class="patch-article-title">
+                        <h2>Calculadora de retiro</h2>
+                    </div>
+                    <div class="patch-article-content">
+                        Puntos a canjear:
+                        <br>
+                        <input type="number" class="bone-input" placeholder="ingresa puntos" id="puntos"></input>
+                        <br>
+                        <button class="bone-button" onclick="Calcular()">Calcular Retiro</button>
+                        <div id="resultado"></div>
                     </div>
                 </article>
             </div>
         </section>
     </main>
 </body>
+<script src="../js/bone-city.js">
+</script>
 </html>
