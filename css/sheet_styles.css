@@ -483,6 +483,38 @@ h2 {
         margin-left: 0;
     }
 }
+/* Perfil (layers) en mobile: solo título (layer-1) y persona (layer-2) */
+@media (max-width: 768px) {
+    .layer-3,
+    .layer-4 {
+        display: none;
+    }
+    .container {
+        width: 100%;
+        padding: 20px 10px;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+    }
+    .layers-container {
+        height: 320px;
+        margin-bottom: 20px;
+    }
+    .layer-2 img.profile-pic {
+        max-height: 100%;
+        width: auto;
+    }
+    .title-box {
+        width: 90%;
+        bottom: 20px;
+        padding: 10px;
+    }
+    .title-box h1 {
+        font-size: 22px;
+    }
+    .title-box h2 {
+        font-size: 15px;
+    }
+}
 @media (max-width: 768px) {
     .playlist {
         font-size: 2rem;
