@@ -1,34 +1,31 @@
 function Calcular() {
-    var puntos;
-    var sub = 0.85;
-    var nosub = 0.8;
-    var sub, nosub, tsub, tnosub;
+    const sub = 0.85;
+    const nosub = 0.80;
 
     const input = document.getElementById('puntos');
     const resultado = document.getElementById('resultado');
 
-    if (input.value.trim() === '') {
-        resultado.innerHTML = '<br><p>Ingresa una cantidad de puntos.</p>';
-        input.focus();
+    const valor = input.value.trim();
+
+    if (valor === '') {
+        resultado.innerHTML = '';
         return;
     }
 
-    puntos = Number(input.value);
+    const puntos = Number(valor);
 
     if (!Number.isFinite(puntos)) {
         resultado.innerHTML = '<br><p>Ingresa un número válido.</p>';
-        input.focus();
         return;
     }
 
     if (puntos < 0) {
         resultado.innerHTML = '<br><p>Los puntos no pueden ser negativos.</p>';
-        input.focus();
         return;
     }
 
-    tsub = (puntos / 100) * sub;
-    tnosub = (puntos / 100) * nosub;
+    const tsub = (puntos / 100) * sub;
+    const tnosub = (puntos / 100) * nosub;
 
     resultado.innerHTML = `
         <div class="patch-article-table">
@@ -49,3 +46,5 @@ function Calcular() {
         </div>
     `;
 }
+
+document.getElementById('puntos').addEventListener('input', Calcular);

@@ -1,311 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Sorteo con ruleta vertical ponderada por tickets — Gaming Edition" />
-  <title>⚔️ DOTA SORTEO</title>
-
-  <!-- Bootstrap 5 -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-    crossorigin="anonymous"
-  />
-
-  <!-- Bootstrap Icons -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-  />
-
-  <!-- Canvas Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="../css/stylescarmesi.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bones City</title>
+    <link rel="icon" type="image/x-icon" href="../img/iconos/logo-skull.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styles_carmesi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- ═══════════════════════════════════════════════════════
-       HEADER
-  ═══════════════════════════════════════════════════════ -->
-  <header class="app-header" role="banner">
-    <div class="header-inner">
-      <div class="header-logo">
-        <span class="logo-icon">⚔️</span>
-        <span class="logo-text">DOTA <span class="logo-accent">SORTEO</span></span>
-      </div>
-      <div class="header-controls">
-        <button
-          id="btnSound"
-          class="btn-icon-ctrl active"
-          aria-label="Activar o desactivar sonido"
-          title="Sonido"
-        >
-          <i class="bi bi-volume-up-fill"></i>
-        </button>
-        <div class="header-status" id="headerStatus">
-          <span class="status-dot" id="statusDot"></span>
-          <span id="statusText">Cargando...</span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ═══════════════════════════════════════════════════════
-       LOADING OVERLAY
-  ═══════════════════════════════════════════════════════ -->
-  <div id="loadingOverlay" class="loading-overlay" role="status" aria-live="polite">
-    <div class="loading-spinner"></div>
-    <p class="loading-text">Cargando participantes...</p>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-       ERROR STATE
-  ═══════════════════════════════════════════════════════ -->
-  <div id="errorState" class="error-state d-none" role="alert" aria-live="assertive">
-    <div class="error-icon">⚠️</div>
-    <h2 class="error-title">Error al cargar participantes</h2>
-    <p class="error-message" id="errorMessage">No fue posible cargar la lista de participantes.</p>
-    <button class="btn-primary-glow" onclick="location.reload()" aria-label="Reintentar carga">
-      <i class="bi bi-arrow-clockwise"></i> Reintentar
-    </button>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-       MAIN APP
-  ═══════════════════════════════════════════════════════ -->
-  <main id="appMain" class="app-main d-none" role="main">
-
-    <!-- ── TOP SECTION: Ruleta + Info ── -->
-    <section class="top-section">
-
-      <!-- Ruleta Column -->
-      <div class="roulette-column">
-
-        <!-- Transparency Panel -->
-        <div class="transparency-panel" id="transparencyPanel">
-          <span class="tp-item">
-            <i class="bi bi-people-fill"></i>
-            Participantes: <strong id="tpParticipants">0</strong>
-          </span>
-          <span class="tp-sep">·</span>
-          <span class="tp-item">
-            <i class="bi bi-ticket-fill"></i>
-            Tickets: <strong id="tpTickets">0</strong>
-          </span>
-          <span class="tp-sep">·</span>
-          <span class="tp-item">
-            <i class="bi bi-shield-check-fill"></i>
-            Selección ponderada
-          </span>
-        </div>
-
-        <!-- Roulette Widget -->
-        <div class="roulette-widget" role="img" aria-label="Ruleta de sorteo vertical">
-
-          <!-- Top gradient fade -->
-          <div class="roulette-fade roulette-fade--top" aria-hidden="true"></div>
-
-          <!-- Indicator arrows -->
-          <div class="roulette-indicator" aria-hidden="true">
-            <div class="indicator-left">
-              <span class="indicator-arrow">▶</span>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="sorteo-navbar">
+                <h1>Sorteo Carmesi</h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
             </div>
-            <div class="indicator-right">
-              <span class="indicator-arrow">◀</span>
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                            Opciones
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Opción 1</a></li>
+                            <li><a class="dropdown-item" href="#">Opción 2</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Opción 3</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
             </div>
-          </div>
-
-          <!-- Scrolling track -->
-          <div class="roulette-viewport" aria-hidden="true">
-            <div class="roulette-track" id="rouletteTrack">
-              <!-- Items injected by JS -->
-            </div>
-          </div>
-
-          <!-- Bottom gradient fade -->
-          <div class="roulette-fade roulette-fade--bottom" aria-hidden="true"></div>
-
-        </div>
-
-        <!-- Spinning status badge -->
-        <div class="spinning-badge d-none" id="spinningBadge" aria-live="polite">
-          <span class="spinning-dot"></span>
-          SORTEANDO...
-        </div>
-
-        <!-- Post-result info -->
-        <div class="result-info d-none" id="resultInfo" aria-live="polite">
-          <i class="bi bi-check-circle-fill text-success"></i>
-          Resultado seleccionado antes de iniciar la animación.
-        </div>
-
-        <!-- Controls -->
-        <div class="roulette-controls">
-          <div class="exclude-toggle">
-            <input
-              type="checkbox"
-              id="chkExclude"
-              class="form-check-input"
-              aria-label="Excluir ganadores anteriores del sorteo"
-            />
-            <label for="chkExclude" class="form-check-label">
-              Excluir ganadores anteriores
-            </label>
-          </div>
-
-          <div class="control-buttons">
-            <button
-              id="btnSpin"
-              class="btn-spin"
-              aria-label="Iniciar sorteo"
-              disabled
-            >
-              <i class="bi bi-play-fill"></i>
-              INICIAR SORTEO
-            </button>
-
-            <button
-              id="btnReset"
-              class="btn-reset"
-              aria-label="Nuevo sorteo — reiniciar ruleta"
-            >
-              <i class="bi bi-arrow-counterclockwise"></i>
-              NUEVO SORTEO
-            </button>
-          </div>
-        </div>
-
-      </div><!-- /roulette-column -->
-
-    </section><!-- /top-section -->
-
-    <!-- ── BOTTOM SECTION: Participants + History ── -->
-    <section class="bottom-section">
-
-      <!-- Participants Panel -->
-      <div class="panel panel--participants">
-        <div class="panel-header">
-          <h2 class="panel-title">
-            <i class="bi bi-people-fill"></i> PARTICIPANTES
-          </h2>
-          <div class="panel-stats" id="panelStats">
-            <span>Total: <strong id="statParticipants">0</strong></span>
-            <span>Tickets: <strong id="statTickets">0</strong></span>
-          </div>
-        </div>
-        <div class="panel-body">
-          <ul class="participants-list" id="participantsList" role="list" aria-label="Lista de participantes">
-            <!-- Injected by JS -->
-          </ul>
-        </div>
-      </div>
-
-      <!-- History Panel -->
-      <div class="panel panel--history">
-        <div class="panel-header">
-          <h2 class="panel-title">
-            <i class="bi bi-clock-history"></i> HISTORIAL
-          </h2>
-          <button
-            id="btnClearHistory"
-            class="btn-clear"
-            aria-label="Limpiar historial de ganadores"
-          >
-            <i class="bi bi-trash3"></i> Limpiar
-          </button>
-        </div>
-        <div class="panel-body">
-          <ul class="history-list" id="historyList" role="list" aria-label="Historial de ganadores">
-            <li class="history-empty" id="historyEmpty">
-              <i class="bi bi-hourglass"></i>
-              Sin ganadores aún
-            </li>
-          </ul>
-        </div>
-      </div>
-
-    </section><!-- /bottom-section -->
-
-  </main><!-- /appMain -->
-
-  <!-- ═══════════════════════════════════════════════════════
-       WINNER MODAL
-  ═══════════════════════════════════════════════════════ -->
-  <div
-    id="winnerModal"
-    class="winner-modal-overlay d-none"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="winnerModalTitle"
-    aria-describedby="winnerModalDesc"
-  >
-    <div class="winner-modal-box">
-
-      <div class="winner-modal-glow" aria-hidden="true"></div>
-
-      <div class="winner-modal-header">
-        <span class="winner-emoji" aria-hidden="true">🎉</span>
-        <h2 class="winner-modal-title" id="winnerModalTitle">¡GANADOR!</h2>
-        <span class="winner-emoji" aria-hidden="true">🎉</span>
-      </div>
-
-      <div class="winner-modal-body" id="winnerModalDesc">
-        <p class="winner-name" id="winnerName">—</p>
-
-        <div class="winner-id-section">
-          <span class="winner-id-label">ID DOTA</span>
-          <span class="winner-id-value" id="winnerId">—</span>
-        </div>
-
-        <div class="winner-actions">
-          <button
-            id="btnCopyId"
-            class="btn-action btn-action--copy"
-            aria-label="Copiar ID de Dota al portapapeles"
-          >
-            <i class="bi bi-clipboard-fill"></i>
-            <span id="btnCopyText">Copiar ID</span>
-          </button>
-
-          <a
-            id="btnSteam"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-action btn-action--steam"
-            aria-label="Ver perfil en Steam"
-          >
-            <i class="bi bi-steam"></i>
-            Ver perfil Steam
-          </a>
-        </div>
-      </div>
-
-      <div class="winner-modal-footer">
-        <button
-          id="btnCloseModal"
-          class="btn-close-modal"
-          aria-label="Cerrar modal del ganador"
-        >
-          <i class="bi bi-x-lg"></i> Cerrar
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-       SCRIPTS
-  ═══════════════════════════════════════════════════════ -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmqXTMzGRXOzQjKYzHFbFkSzLKFQ"
-    crossorigin="anonymous"
-  ></script>
-  <script src="../js/app.js"></script>
+            <!-- <div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="/">Principal</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="#p">Puntos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="#apuestas">Apuestas</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="#calculadora">Calculadora</a>
+                        </div>
+                    </li>
+                </ul>
+            </div> -->
+        </nav>
+    </header>
+    <main class="texture">
+    </main>
 </body>
+<script src="../js/bone-city.js">
+</script>
 </html>

@@ -1,0 +1,379 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+:root{
+    /* Purple */
+    --purple-10: #f4eeff;
+    --purple-20: #e5d7ff;
+    --purple-30: #d0b3ff;
+    --purple-40: #bd90fd;
+    --purple-50: #ab70f6;
+    --purple-60: #8928df;
+    --purple-70: #6e00bc;
+    --purple-80: #4d0088;
+    --purple-90: #300059;
+    --purple-100: #1a042a;
+    --purple-gray: #2d2331;
+    /* gold */
+    --gold-50: #fffef1;
+    --gold-100: #fdf1c8;
+    --gold-400: #ffd100;
+    --gold-700: #584300;
+    /*gray*/
+    --gray-100: #2e2e2e;
+}
+
+body{
+    background-color: var(--purple-100);
+    color: var(--gold-50);
+}
+h1,h2{
+    margin: 0;
+}
+/*Navbar*/
+.navbar{
+    background-color: var(--purple-90);
+    display: grid;
+    justify-content: center;
+}
+.nav-item{
+    list-style: none;
+    /*padding: 10px 10px;*/
+}
+.sorteo-navbar{
+    justify-content: center;
+    align-items: center;
+    font-family: "Reaver", serif;
+    display: flex;
+    margin: 10px;
+    padding: 5px;
+}
+.nav-link{
+    font-family: 'Faculty Glyphic', sans-serif;
+    background-color: var(--purple-90);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    color: var(--gold-100);
+    margin: 0;
+    padding: 10px 30px;
+}
+.nav-link:hover{
+    background-color: var(--purple-70);
+    color: var(--gold-10);
+    box-shadow: 0px 0px 10px var(--purple-100);
+    transform: scale(1.1);
+}
+.navbar-nav{
+    height: 4rem;
+    align-items: center;
+}
+.nav-link-div{
+    width: 7rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.logo{
+    width: 100%;
+    height: 3rem;
+    padding: 5px 25px;
+}
+/* section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    font-family: 'Faculty Glyphic', sans-serif;
+    background: linear-gradient(147deg,rgba(26, 4, 42, 1) 0%, rgba(110, 0, 188, 1) 25%, rgba(77, 0, 136, 1) 50%, rgba(110, 0, 188, 1) 75%, rgba(26, 4, 42, 1) 100%);
+}
+.chip{
+    height: 100%;
+    width: 20rem;
+    z-index: 1;
+}
+.bones-city{
+    height: 100%;
+    width: 25rem;
+    z-index: 1;
+} */
+.bones-banner{
+    background-image: url('../img/trassure/carmesi.jpg');
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    opacity: .55;
+    background-size: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    mask-image: linear-gradient(to bottom, black 95%, rgba(0, 0, 0, 0));
+}
+.bones-banner-add{
+    pointer-events: none;
+    width: 100%;
+    height: 500px;
+    z-index: 1;
+    position: relative;
+    margin-bottom: -275px;
+    -webkit-mask-image: linear-gradient(to top, transparent 25%, black 100%);
+    mask-image: linear-gradient(to top, transparent 25%, black 100%);
+}
+.logo-banner{
+    width: 40%;
+    height: 100%;
+    position: relative;
+    margin-bottom: 3rem;
+}
+.texture{
+    background-image: url('../img/recursos/fondo.webp');
+    width: 100%;
+    position: relative;
+    background-color: var(--purple-100);
+    
+}
+.references{
+    font-family: 'Faculty Glyphic', sans-serif;
+    position: relative;
+    color: var(--gold-100);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    cursor: pointer;
+    user-select: none;
+    text-shadow: 0px 0px 4px #000;
+    z-index: 200;
+}
+.title{
+    padding: 0px 18vw;
+    position: relative;
+    font-size: 60px;
+    line-height: 115%;
+    text-align: center;
+    font-family: "Reaver", serif;
+    color: var(--gold-100);
+    font-weight: 700;
+    z-index: 10;
+    text-shadow: 0px 0px 10px #000, 0px 0px 5px #000;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.date{
+    font-size: 20px;
+    color: var(--gold-50);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    z-index: 10;
+}
+.content{
+    color: var(--gold-50);
+    padding: 0px 50px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 22px;
+    line-height: 150%;
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-weight: lighter;
+    letter-spacing: .5px;
+    z-index: 10;
+}
+.patch-info{
+    padding: 10px;
+    margin: 5px;
+    z-index: 10;
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.25rem;
+}
+.patch-article{
+    background-color:var(--purple-70);
+    margin-bottom: 30px;
+}
+.patch-article-title{
+    padding: 10px 16px;
+    box-shadow:0px 0px 10px var(--purple-100),
+                inset 0px 0px 10px var(--purple-90);
+    align-items: center;
+    display: flex;
+}
+.patch-article-content{
+    background: linear-gradient(to right, var(--purple-gray), var(--gray-100));
+    color: var(--gold-50);
+    padding: 20px;
+}
+.patch-tb, .patch-tb-f, th, td{
+  border-color: var(--gold-10);
+  border: 2px solid var(--purple-50);
+  padding: 5px 20px;
+  justify-content: center;
+  text-align: center;
+}
+.patch-article-table{
+    Justify-content: center;
+    align-items: center;
+    display: flex;
+}
+p{
+    font-size: 1.25rem;
+}
+.bone-input{
+    background-color: var(--purple-10);
+    border: 2px solid var(--purple-50);
+    color: var(--gold-700);
+    padding: 10px 16px;
+    margin-top: 20px;
+    border-radius: 8px;
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1.5rem;
+    width: 100%;
+    max-width: 280px;
+    outline: none;
+    transition: border-color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+.bone-input::placeholder{
+    color: var(--purple-70);
+    opacity: .7;
+}
+.bone-input:hover{
+    border-color: var(--purple-60);
+}
+.bone-input:focus{
+    border-color: var(--purple-80);
+    box-shadow: 0 0 0 3px rgba(174, 0, 255, 0.25);
+}
+.bone-button{
+    background-color: var(--purple-70);
+    border: none;
+    color: var(--gold-100);
+    padding: 10px 24px;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 8px;
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-size: 1rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 3px 0 var(--purple-90), 0 4px 10px rgba(0,0,0,.4);
+    transition: background-color .2s ease, transform .12s ease, box-shadow .12s ease;
+}
+.bone-button:hover{
+    background-color: var(--purple-60);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--purple-90), 0 8px 14px rgba(0,0,0,.45);
+}
+.bone-button:active{
+    transform: translateY(1px);
+    box-shadow: 0 1px 0 var(--purple-90), 0 2px 6px rgba(0,0,0,.4);
+}
+#resultado{
+    margin-top: 15px;
+    font-size: 1.1rem;
+    color: var(--gold-100);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px){
+    .title{
+        font-size: 44px;
+        padding: 0 8vw;
+    }
+    .content{
+        font-size: 19px;
+        padding: 0 30px;
+    }
+    .logo-banner{
+        width: 55%;
+    }
+}
+
+@media (max-width: 768px){
+    .navbar{
+        flex-direction: column;
+        padding: 10px 0;
+    }
+    .navbar-nav{
+        height: auto;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+        margin-top: 8px;
+    }
+    .nav-link-div{
+        width: auto;
+    }
+    .nav-link{
+        padding: 8px 18px;
+    }
+    .logo{
+        height: 2.4rem;
+    }
+    .title{
+        font-size: 32px;
+        padding: 0 5vw;
+    }
+    .date{
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    .content{
+        font-size: 17px;
+        padding: 0 18px;
+        line-height: 140%;
+    }
+    p{
+        font-size: 1rem;
+    }
+    .logo-banner{
+        width: 70%;
+    }
+    .bones-banner-add{
+        height: 320px;
+        margin-bottom: -160px;
+    }
+    .patch-article-content{
+        padding: 15px;
+    }
+    .patch-tb, .patch-tb-f, th, td{
+        padding: 5px 10px;
+        font-size: .9rem;
+    }
+    .bone-input{
+        width: 100%;
+        max-width: 100%;
+        display: block;
+    }
+    .bone-button{
+        margin-left: 0;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px){
+    .title{
+        font-size: 24px;
+    }
+    .content{
+        font-size: 15px;
+        padding: 0 12px;
+    }
+    .logo-banner{
+        width: 85%;
+    }
+    .bones-banner-add{
+        height: 220px;
+        margin-bottom: -110px;
+    }
+}
