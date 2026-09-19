@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bones City</title>
+    <link rel="icon" type="image/x-icon" href="../img/iconos/logo-skull.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/styles_carmesi.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg">
+            <div class="sorteo-navbar">
+                <h1>Sorteo Carmesi</h1>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="/">Principal</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="#p">Puntos</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="#apuestas">Apuestas</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div class="nav-link-div">
+                            <a class="nav-link" href="#calculadora">Calculadora</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="texture">
+            <!-- ── TOP SECTION: Ruleta + Info ── -->
+    <section class="top-section">
+
+      <!-- Ruleta Column -->
+      <div class="roulette-column">
+
+        <!-- Transparency Panel -->
+        <div class="transparency-panel" id="transparencyPanel">
+          <span class="tp-item">
+            <i class="bi bi-people-fill"></i>
+            Participantes: <strong id="tpParticipants">0</strong>
+          </span>
+          <span class="tp-sep">·</span>
+          <span class="tp-item">
+            <i class="bi bi-ticket-fill"></i>
+            Tickets: <strong id="tpTickets">0</strong>
+          </span>
+          <span class="tp-sep">·</span>
+          <span class="tp-item">
+            <i class="bi bi-shield-check-fill"></i>
+            Selección ponderada
+          </span>
+        </div>
+
+        <!-- Roulette Widget -->
+        <div class="roulette-widget" role="img" aria-label="Ruleta de sorteo vertical">
+
+          <!-- Top gradient fade -->
+          <div class="roulette-fade roulette-fade--top" aria-hidden="true"></div>
+
+          <!-- Indicator arrows -->
+          <div class="roulette-indicator" aria-hidden="true">
+            <div class="indicator-left">
+              <span class="indicator-arrow">▶</span>
+            </div>
+            <div class="indicator-right">
+              <span class="indicator-arrow">◀</span>
+            </div>
+          </div>
+
+          <!-- Scrolling track -->
+          <div class="roulette-viewport" aria-hidden="true">
+            <div class="roulette-track" id="rouletteTrack">
+              <!-- Items injected by JS -->
+            </div>
+          </div>
+
+          <!-- Bottom gradient fade -->
+          <div class="roulette-fade roulette-fade--bottom" aria-hidden="true"></div>
+
+        </div>
+
+        <!-- Spinning status badge -->
+        <div class="spinning-badge d-none" id="spinningBadge" aria-live="polite">
+          <span class="spinning-dot"></span>
+          SORTEANDO...
+        </div>
+
+        <!-- Post-result info -->
+        <div class="result-info d-none" id="resultInfo" aria-live="polite">
+          <i class="bi bi-check-circle-fill text-success"></i>
+          Resultado seleccionado antes de iniciar la animación.
+        </div>
+
+        <!-- Controls -->
+        <div class="roulette-controls">
+          <div class="exclude-toggle">
+            <input
+              type="checkbox"
+              id="chkExclude"
+              class="form-check-input"
+              aria-label="Excluir ganadores anteriores del sorteo"
+            />
+            <label for="chkExclude" class="form-check-label">
+              Excluir ganadores anteriores
+            </label>
+          </div>
+
+          <div class="control-buttons">
+            <button
+              id="btnSpin"
+              class="btn-spin"
+              aria-label="Iniciar sorteo"
+              disabled
+            >
+              <i class="bi bi-play-fill"></i>
+              INICIAR SORTEO
+            </button>
+
+            <button
+              id="btnReset"
+              class="btn-reset"
+              aria-label="Nuevo sorteo — reiniciar ruleta"
+            >
+              <i class="bi bi-arrow-counterclockwise"></i>
+              NUEVO SORTEO
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /roulette-column -->
+
+    </section><!-- /top-section -->
+
+    <!-- ── BOTTOM SECTION: Participants + History ── -->
+    <section class="bottom-section">
+
+      <!-- Participants Panel -->
+      <div class="panel panel--participants">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <i class="bi bi-people-fill"></i> PARTICIPANTES
+          </h2>
+          <div class="panel-stats" id="panelStats">
+            <span>Total: <strong id="statParticipants">0</strong></span>
+            <span>Tickets: <strong id="statTickets">0</strong></span>
+          </div>
+        </div>
+        <div class="panel-body">
+          <ul class="participants-list" id="participantsList" role="list" aria-label="Lista de participantes">
+            <!-- Injected by JS -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- History Panel -->
+      <div class="panel panel--history">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <i class="bi bi-clock-history"></i> HISTORIAL
+          </h2>
+          <button
+            id="btnClearHistory"
+            class="btn-clear"
+            aria-label="Limpiar historial de ganadores"
+          >
+            <i class="bi bi-trash3"></i> Limpiar
+          </button>
+        </div>
+        <div class="panel-body">
+          <ul class="history-list" id="historyList" role="list" aria-label="Historial de ganadores">
+            <li class="history-empty" id="historyEmpty">
+              <i class="bi bi-hourglass"></i>
+              Sin ganadores aún
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </section>
+        <!-- <table id="tabla">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Tickets</th>
+                <th>Steam ID</th>
+                <th>Verificado</th>
+                <th>Comentario</th>
+            </tr>
+            </thead>
+            <tbody id="cuerpo"></tbody>
+        </table> -->
+      <div
+    id="winnerModal"
+    class="winner-modal-overlay d-none"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="winnerModalTitle"
+    aria-describedby="winnerModalDesc"
+  >
+    <div class="winner-modal-box">
+
+      <div class="winner-modal-glow" aria-hidden="true"></div>
+
+      <div class="winner-modal-header">
+        <span class="winner-emoji" aria-hidden="true">🎉</span>
+        <h2 class="winner-modal-title" id="winnerModalTitle">¡GANADOR!</h2>
+        <span class="winner-emoji" aria-hidden="true">🎉</span>
+      </div>
+
+      <div class="winner-modal-body" id="winnerModalDesc">
+        <p class="winner-name" id="winnerName">—</p>
+
+        <div class="winner-id-section">
+          <span class="winner-id-label">ID DOTA</span>
+          <span class="winner-id-value" id="winnerId">—</span>
+        </div>
+
+        <div class="winner-actions">
+          <button
+            id="btnCopyId"
+            class="btn-action btn-action--copy"
+            aria-label="Copiar ID de Dota al portapapeles"
+          >
+            <i class="bi bi-clipboard-fill"></i>
+            <span id="btnCopyText">Copiar ID</span>
+          </button>
+
+          <a
+            id="btnSteam"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-action btn-action--steam"
+            aria-label="Ver perfil en Steam"
+          >
+            <i class="bi bi-steam"></i>
+            Ver perfil Steam
+          </a>
+        </div>
+      </div>
+
+      <div class="winner-modal-footer">
+        <button
+          id="btnCloseModal"
+          class="btn-close-modal"
+          aria-label="Cerrar modal del ganador"
+        >
+          <i class="bi bi-x-lg"></i> Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</body>
+<script src="../js/crimson.js">
+</script>
+</html>

@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Faculty+Glyphic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
     <header>
@@ -20,28 +21,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
-            <div class="collapse navbar-collapse" id="navbarMenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Inicio</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            Opciones
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Opción 1</a></li>
-                            <li><a class="dropdown-item" href="#">Opción 2</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Opción 3</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- <div>
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <div class="nav-link-div">
@@ -64,12 +43,161 @@
                         </div>
                     </li>
                 </ul>
-            </div> -->
+            </div>
         </nav>
     </header>
     <main class="texture">
+
+      <!-- ── Estado de carga: la API de Google Sheets puede tardar ── -->
+      <div id="sorteoLoading" class="sorteo-loading" role="status" aria-live="polite">
+        <div class="sorteo-spinner"></div>
+        <p>Cargando participantes...</p>
+      </div>
+
+      <!-- ── Estado de error ── -->
+      <div id="sorteoError" class="sorteo-error d-none" role="alert" aria-live="assertive">
+        <h3><i class="bi bi-exclamation-triangle-fill"></i> No se pudo cargar el sorteo</h3>
+        <p id="sorteoErrorMsg">No fue posible obtener la lista de participantes.</p>
+        <button class="bone-button" id="btnRetry" type="button">
+          <i class="bi bi-arrow-clockwise"></i> Reintentar
+        </button>
+      </div>
+
+      <!-- ── App principal ── -->
+      <div id="appMain" class="d-none">
+
+        <!-- Ruleta + info -->
+        <section class="top-section">
+          <div class="roulette-column">
+
+            <div class="transparency-panel" id="transparencyPanel">
+              <span class="tp-item">
+                Participantes: <strong id="tpParticipants">0</strong>
+              </span>
+              <span class="tp-item">
+                Tickets: <strong id="tpTickets">0</strong>
+              </span>
+            </div>
+
+            <div class="roulette-widget" role="img" aria-label="Ruleta de sorteo vertical">
+              <div class="roulette-fade roulette-fade--top" aria-hidden="true"></div>
+
+              <div class="roulette-indicator" aria-hidden="true">
+                <div class="indicator-left"><span class="indicator-arrow">▶</span></div>
+                <div class="indicator-right"><span class="indicator-arrow">◀</span></div>
+              </div>
+
+              <div class="roulette-viewport" aria-hidden="true">
+                <div class="roulette-track" id="rouletteTrack"></div>
+              </div>
+
+              <div class="roulette-fade roulette-fade--bottom" aria-hidden="true"></div>
+            </div>
+
+            <div class="spinning-badge d-none" id="spinningBadge" aria-live="polite">
+              <span class="spinning-dot"></span> SORTEANDO...
+            </div>
+
+            <div class="result-info d-none" id="resultInfo" aria-live="polite">
+              <i class="bi bi-check-circle-fill"></i>
+              Resultado seleccionado antes de iniciar la animación.
+            </div>
+
+            <div class="roulette-controls">
+              <label class="exclude-toggle" for="chkExclude">
+                <input type="checkbox" id="chkExclude" class="form-check-input"
+                  aria-label="Excluir ganadores anteriores del sorteo">
+                Excluir ganadores anteriores
+              </label>
+
+              <div class="control-buttons">
+                <button id="btnSpin" class="btn-spin" aria-label="Iniciar sorteo" disabled>
+                  <i class="bi bi-play-fill"></i> INICIAR SORTEO
+                </button>
+                <button id="btnReset" class="btn-reset" aria-label="Nuevo sorteo — reiniciar ruleta">
+                  <i class="bi bi-arrow-counterclockwise"></i> NUEVO SORTEO
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Participantes + Historial -->
+        <section class="bottom-section">
+
+          <div class="panel panel--participants">
+            <div class="panel-header">
+              <h2 class="panel-title"><i class="bi bi-people-fill"></i> PARTICIPANTES</h2>
+              <div class="panel-stats" id="panelStats">
+                <span>Total: <strong id="statParticipants">0</strong></span>
+                <span>Tickets: <strong id="statTickets">0</strong></span>
+              </div>
+            </div>
+            <div class="panel-body">
+              <ul class="participants-list" id="participantsList" role="list" aria-label="Lista de participantes">
+                <!-- Generado por crimson.js: cada fila es un desplegable con
+                     id / nombre / tickets / steamId / verificado / comentario -->
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel panel--history">
+            <div class="panel-header">
+              <h2 class="panel-title"><i class="bi bi-clock-history"></i> HISTORIAL</h2>
+              <button id="btnClearHistory" class="btn-clear" aria-label="Limpiar historial de ganadores">
+                <i class="bi bi-trash3"></i> Limpiar
+              </button>
+            </div>
+            <div class="panel-body">
+              <ul class="history-list" id="historyList" role="list" aria-label="Historial de ganadores">
+                <li class="history-empty" id="historyEmpty">
+                  <i class="bi bi-hourglass"></i> Sin ganadores aún
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </section>
+      </div>
     </main>
+
+    <!-- ── Modal de ganador ── -->
+    <div id="winnerModal" class="winner-modal-overlay d-none" role="dialog" aria-modal="true"
+      aria-labelledby="winnerModalTitle" aria-describedby="winnerModalDesc">
+      <div class="winner-modal-box">
+        <div class="winner-modal-header">
+          <h2 class="winner-modal-title" id="winnerModalTitle">¡GANADOR!</h2>
+        </div>
+        <div class="winner-modal-body" id="winnerModalDesc">
+          <p class="winner-name" id="winnerName">—</p>
+
+          <div class="winner-id-section">
+            <span class="winner-id-label" id="winnerIdLabel">ID DOTA</span>
+            <span class="winner-id-value" id="winnerId">—</span>
+          </div>
+
+          <div class="winner-actions" id="winnerActions">
+            <button id="btnCopyId" class="btn-action btn-action--copy" aria-label="Copiar ID de Dota al portapapeles">
+              <i class="bi bi-clipboard-fill"></i>
+              <span id="btnCopyText">Copiar ID</span>
+            </button>
+            <a id="btnSteam" href="#" target="_blank" rel="noopener noreferrer"
+              class="btn-action btn-action--steam" aria-label="Ver perfil en Steam">
+              <i class="bi bi-steam"></i> Ver perfil Steam
+            </a>
+          </div>
+        </div>
+
+        <div class="winner-modal-footer">
+          <button id="btnCloseModal" class="btn-close-modal" aria-label="Cerrar modal del ganador">
+            <i class="bi bi-x-lg"></i> Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="../js/crimson.js"></script>
 </body>
-<script src="../js/bone-city.js">
-</script>
 </html>
