@@ -47,7 +47,7 @@
     --clr-success:  #6fd88a;
 
     --font-main:    'Faculty Glyphic', sans-serif;
-    --font-roulette: "Reaver", serif;
+    --font-roulette: "Reaver", 'Faculty Glyphic', serif;
 
     --radius-sm: 8px;
     --radius-md: 14px;
@@ -109,7 +109,7 @@ h1,h2{
 .sorteo-navbar{
     justify-content: center;
     align-items: center;
-    font-family: "Reaver", serif;
+    font-family: "Reaver", 'Faculty Glyphic', serif;
     display: flex;
     margin: 10px;
     padding: 5px;
@@ -190,7 +190,7 @@ h1,h2{
     font-size: 60px;
     line-height: 115%;
     text-align: center;
-    font-family: "Reaver", serif;
+    font-family: "Reaver", 'Faculty Glyphic',  serif;
     color: var(--gold-100);
     font-weight: 700;
     z-index: 10;
