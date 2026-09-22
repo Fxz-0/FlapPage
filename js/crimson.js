@@ -57,6 +57,7 @@ const state = {
   history: [],
   expandedIds: new Set(),
   searchQuery: '',
+  soundEnabled: true,
 };
 
 /* DOM */
@@ -102,7 +103,58 @@ const dom = {
   btnCloseModal: document.getElementById('btnCloseModal'),
 };
 
-/* 1. CARGA DE PARTICIPANTES */
+/* SONIDO */
+const audio = (() => {
+  let ctx = null;
+
+  function getCtx() {
+    if (!ctx) {
+      try {
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+      } catch (_) {
+        return null;
+      }
+    }
+    return ctx;
+  }
+
+function playTone(frequency, duration, volume = 0.15, type = 'sine') {
+    if (!state.soundEnabled) return;
+    const c = getCtx();
+    if (!c) return;
+
+    const osc  = c.createOscillator();
+    const gain = c.createGain();
+
+    osc.connect(gain);
+    gain.connect(c.destination);
+
+    osc.type            = type;
+    osc.frequency.value = frequency;
+    gain.gain.setValueAtTime(volume, c.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, c.currentTime + duration);
+
+    osc.start(c.currentTime);
+    osc.stop(c.currentTime + duration);
+  }
+
+  /** Tick durante el giro. */
+  function tick() {
+    playTone(440 + Math.random() * 200, 0.04, 0.08, 'square');
+  }
+
+  /** Fanfare al revelar ganador. */
+  function winner() {
+    const notes = [523, 659, 784, 1047];
+    notes.forEach((freq, i) => {
+      setTimeout(() => playTone(freq, 0.3, 0.18, 'sine'), i * 120);
+    });
+  }
+
+  return { tick, winner };
+})();
+
+/* CARGA DE PARTICIPANTES */
 
 async function loadParticipants() {
   showLoading();
@@ -174,14 +226,14 @@ function normalizeParticipants(data) {
   return result;
 }
 
-/* 2. ESTADÍSTICAS */
+/* ESTADÍSTICAS */
 
 function calculateStatistics(participants) {
   const totalTickets = participants.reduce((sum, p) => sum + p.tickets, 0);
   return { totalParticipants: participants.length, totalTickets };
 }
 
-/* 3. SELECCIÓN PONDERADA */
+/* SELECCIÓN PONDERADA */
 
 function selectWinner(participants) {
   if (!participants || participants.length === 0) {
@@ -213,7 +265,7 @@ function applyWinPenalty(winner) {
   }
 }
 
-/* 4. SECUENCIA VISUAL DE LA RULETA */
+/* SECUENCIA VISUAL DE LA RULETA */
 
 function buildSpinSequence(allParticipants, winner, rounds) {
   const pool = allParticipants.length > 0 ? allParticipants : [winner];
@@ -250,7 +302,7 @@ function shuffleArray(arr) {
   return arr;
 }
 
-/* 5. POSICIÓN FINAL */
+/* POSICIÓN FINAL */
 
 function calculateFinalPosition(winnerFinalIndex) {
   const centerOffset = Math.floor(VISIBLE_ITEMS / 2) * ITEM_HEIGHT;
@@ -258,7 +310,7 @@ function calculateFinalPosition(winnerFinalIndex) {
   return -(winnerAbsoluteTop - centerOffset);
 }
 
-/* 6. RENDER DEL TRACK */
+/* RENDER DEL TRACK */
 
 function renderRouletteTrack(sequence, winnerFinalIndex) {
   const fragment = document.createDocumentFragment();
@@ -318,7 +370,7 @@ function renderInitialTrack() {
   dom.rouletteTrack.style.transform = `translate3d(0, ${initialY}px, 0)`;
 }
 
-/* 7. ANIMACIÓN */
+/* ANIMACIÓN */
 
 function animateRoulette(finalTranslateY, duration, onComplete) {
   const currentTransform = dom.rouletteTrack.style.transform;
@@ -336,7 +388,29 @@ function animateRoulette(finalTranslateY, duration, onComplete) {
     { duration, easing, fill: 'forwards' }
   );
 
+  // Ticks de sonido sincronizados con el movimiento real del track:
+  // se lee la posición renderizada en cada frame y se dispara un tick
+  // cada vez que se cruza el límite de un ítem (funciona con cualquier easing).
+  let lastTickIndex = Math.round(Math.abs(currentY) / ITEM_HEIGHT);
+  let rafId = requestAnimationFrame(trackTicks);
+
+  function trackTicks() {
+    const style = getComputedStyle(dom.rouletteTrack);
+    const matrix = new DOMMatrixReadOnly(style.transform);
+    const currentIndex = Math.round(Math.abs(matrix.m42) / ITEM_HEIGHT);
+
+    if (currentIndex !== lastTickIndex) {
+      audio.tick();
+      lastTickIndex = currentIndex;
+    }
+
+    if (animation.playState === 'running') {
+      rafId = requestAnimationFrame(trackTicks);
+    }
+  }
+
   animation.onfinish = () => {
+    cancelAnimationFrame(rafId);
     dom.rouletteTrack.style.transform = `translate3d(0, ${finalTranslateY}px, 0)`;
     highlightWinnerItem();
     onComplete();
@@ -350,7 +424,7 @@ function highlightWinnerItem() {
   }
 }
 
-/* 8. MODAL DE GANADOR */
+/* MODAL DE GANADOR */
 
 function showWinner(winner) {
   dom.winnerName.textContent = winner.name;
@@ -368,6 +442,7 @@ function showWinner(winner) {
   dom.btnCopyText.textContent = 'Copiar ID';
   dom.winnerModal.classList.remove('d-none');
 
+  audio.winner();
   launchConfetti();
   setState(AppState.SHOWING_WINNER);
 }
@@ -430,7 +505,7 @@ function flashCopyFeedback(text) {
   setTimeout(() => { dom.btnCopyText.textContent = 'Copiar ID'; }, 2200);
 }
 
-/* 9. HISTORIAL */
+/* HISTORIAL */
 
 function saveWinnerToHistory(winner) {
   state.history.push({
@@ -469,7 +544,7 @@ function clearHistory() {
   renderParticipantsList();
 }
 
-/* 10. RENDER: LISTA DE PARTICIPANTES (acordeón + filtro) */
+/* RENDER: LISTA DE PARTICIPANTES (acordeón + filtro) */
 
 const VERIFIED_LABEL = { SI: 'Verificado', No: 'No verificado', Duda: 'En duda' };
 const VERIFIED_CLASS = { SI: 'participant-verified--si', No: 'participant-verified--no', Duda: 'participant-verified--duda' };
@@ -618,7 +693,7 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-/* 11. ESTADOS DE LA APP */
+/* ESTADOS DE LA APP */
 
 function setState(newState) {
   state.current = newState;
@@ -649,7 +724,7 @@ function setState(newState) {
   }
 }
 
-/* 12. SORTEO PRINCIPAL */
+/* SORTEO PRINCIPAL */
 
 function startSpin() {
   if (state.current === AppState.SPINNING) return;
@@ -687,7 +762,7 @@ function startSpin() {
   });
 }
 
-/* 13. RESET */
+/* RESET */
 
 function resetRoulette() {
   if (state.current === AppState.SPINNING) return;
@@ -708,7 +783,7 @@ function resetRoulette() {
   setState(AppState.IDLE);
 }
 
-/* 14. ESTADOS DE CARGA / ERROR */
+/* ESTADOS DE CARGA / ERROR */
 
 function showLoading() {
   dom.sorteoError.classList.add('d-none');
@@ -723,13 +798,13 @@ function showError(message) {
   dom.sorteoError.classList.remove('d-none');
 }
 
-/* 15. UTILIDADES */
+/* UTILIDADES */
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/* 16. INICIALIZACIÓN */
+/* INICIALIZACIÓN */
 
 function initApp() {
   loadHistory();
@@ -813,7 +888,7 @@ function initApp() {
   }
 }
 
-/* 17. ENTRY POINT */
+/* ENTRY POINT */
 
 document.addEventListener('DOMContentLoaded', () => {
   loadParticipants();
