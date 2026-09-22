@@ -561,48 +561,54 @@ function handleSearchInput(value) {
   renderParticipantsList();
 }
 
+function getCurrentTickets(participantId) {
+  const p = state.participants.find(p => p.id === participantId);
+  return p ? p.tickets : '—';
+}
+ 
 function renderHistory() {
   const existingItems = dom.historyList.querySelectorAll('.history-item');
   existingItems.forEach(el => el.remove());
-
+ 
   if (state.history.length === 0) {
     dom.historyEmpty.classList.remove('d-none');
     return;
   }
   dom.historyEmpty.classList.add('d-none');
-
+ 
   const fragment = document.createDocumentFragment();
-
+ 
   [...state.history].reverse().forEach((entry, index) => {
     const li = document.createElement('li');
     li.className = 'history-item';
     li.setAttribute('role', 'listitem');
-
+ 
     const num = state.history.length - index;
-
+ 
     li.innerHTML = `
       <span class="history-num">#${num}</span>
       <div class="history-info">
         <div class="history-name" title="${escapeHtml(entry.name)}">${escapeHtml(entry.name)}</div>
         <div class="history-id">${entry.steamId ? 'ID: ' + escapeHtml(String(entry.steamId)) : ''}</div>
+        <div class="history-tickets">Tickets restantes: ${getCurrentTickets(entry.id)}</div>
       </div>
     `;
     fragment.appendChild(li);
   });
-
+ 
   dom.historyList.insertBefore(fragment, dom.historyEmpty);
 }
-
+ 
 function updateStatCounters() {
   const eligibleStats = calculateStatistics(state.eligible);
   const allStats = calculateStatistics(state.participants);
-
+ 
   dom.tpParticipants.textContent = eligibleStats.totalParticipants;
   dom.tpTickets.textContent = eligibleStats.totalTickets;
   dom.statParticipants.textContent = allStats.totalParticipants;
   dom.statTickets.textContent = allStats.totalTickets;
 }
-
+ 
 function escapeHtml(str) {
   return String(str)
     .replace(/&/g, '&amp;')
