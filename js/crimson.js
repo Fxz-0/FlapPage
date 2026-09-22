@@ -34,7 +34,7 @@ const SPIN_DURATION_MAX = 7500;
 const HISTORY_KEY = 'sorteoCarmesiHistory';
 
 // Límite de nodos visuales del track
-const MAX_TRACK_ITEMS = 260;
+const MAX_TRACK_ITEMS = 250;
 
 function getSteamUrl(participant) {
   if (!participant.steamId) return '#';
@@ -118,7 +118,7 @@ const audio = (() => {
     return ctx;
   }
 
-function playTone(frequency, duration, volume = 0.15, type = 'sine') {
+function playTone(frequency, duration, volume = 0.05, type = 'sine') {
     if (!state.soundEnabled) return;
     const c = getCtx();
     if (!c) return;
