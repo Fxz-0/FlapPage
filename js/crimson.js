@@ -1,34 +1,14 @@
-/**
- * ═══════════════════════════════════════════════════════════════
- * SORTEO CARMESI — crimson.js
- * Ruleta vertical con selección ponderada por tickets.
- * Los participantes se obtienen desde el Apps Script de Google Sheets.
- *
- * Flujo:
- *   1. loadParticipants()       → fetch + normaliza + valida el JSON
- *   2. selectWinner()           → selección ponderada (ANTES de animar)
- *   3. buildSpinSequence()      → construye la secuencia visual
- *   4. calculateFinalPosition() → calcula el translateY exacto
- *   5. animateRoulette()        → anima hasta esa posición
- *   6. showWinner()             → muestra el modal con el ganador
- * ═══════════════════════════════════════════════════════════════
- */
-
 'use strict';
 
-/* ══════════════════════════════════════════════════════════════
-   CONFIG
-══════════════════════════════════════════════════════════════ */
+/* CONFIG */
 
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyUpp60xm4ywKHUedtWdszTAcgxvk5Nm57k3giiteo4vPbwTbBlXerg4yAS13mKM1n9/exec";
+  "https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnRcC6jEzV6uKuB0j1CK7LBOGKo85-21RjCQOC2AfbXUB4m53jl3o2hS9Zn8xFfOXREiX--dETiGpGaVPVPT0MlcfrXpKApmS-qlCl-x0P2stsegUsPTndk37msE6drCLPBlM4d8wOV33wNQlCfgHZe-thZjLs5-so_TVhlzuAWluSdAlesJJ-boXVyNeV2gkr2SF3uQDOGwHhBAIG7OmWoqwiXE8fstvYDBtPZrwVhk9qVdPInjkK21IN0pK-OLYKeCtxUbCI53WcuOBaU2Xc5mi7ihwQ&lib=MbMcUaUtkmPP318VwO1HeWNAfO51X8Fa2";
 
-/** Valores válidos para el estado de verificación. */
 const VERIFIED_VALUES = ['SI', 'No', 'Duda'];
 
-/** Solo los participantes "SI" entran al sorteo ponderado. */
 function isEligible(p) {
-  return p.verified === 'SI';
+  return p.verified === 'SI' && p.tickets > 0;
 }
 
 const ITEM_HEIGHT = (() => {
@@ -53,15 +33,7 @@ const SPIN_DURATION_MIN = 5500;
 const SPIN_DURATION_MAX = 7500;
 const HISTORY_KEY = 'sorteoCarmesiHistory';
 
-/**
- * Tope de "vueltas" visuales de la ruleta. Con listas grandes (500+
- * tickets repartidos entre muchos participantes) construir la secuencia
- * repitiendo la lista completa varias veces puede crear miles de nodos
- * en el DOM y trabar la animación. Limitamos cuántos participantes
- * distintos se repiten por vuelta para que el track nunca crezca sin
- * control, sin afectar la probabilidad real (el ganador ya fue
- * decidido en el paso 2, esto solo es la vista).
- */
+// Límite de nodos visuales del track
 const MAX_TRACK_ITEMS = 260;
 
 function getSteamUrl(participant) {
@@ -69,9 +41,7 @@ function getSteamUrl(participant) {
   return `https://steamcommunity.com/profiles/[U:1:${participant.steamId}]`;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   ESTADO
-══════════════════════════════════════════════════════════════ */
+/* ESTADO */
 
 const AppState = Object.freeze({
   IDLE: 'IDLE',
@@ -81,16 +51,15 @@ const AppState = Object.freeze({
 
 const state = {
   current: AppState.IDLE,
-  participants: [],   // todos (para mostrar en el panel)
-  eligible: [],        // solo verified === 'SI' (para la ruleta)
+  participants: [],
+  eligible: [],
   currentWinner: null,
   history: [],
   expandedIds: new Set(),
+  searchQuery: '',
 };
 
-/* ══════════════════════════════════════════════════════════════
-   DOM
-══════════════════════════════════════════════════════════════ */
+/* DOM */
 
 const dom = {
   sorteoLoading: document.getElementById('sorteoLoading'),
@@ -111,6 +80,7 @@ const dom = {
   btnSpin: document.getElementById('btnSpin'),
   btnReset: document.getElementById('btnReset'),
   chkExclude: document.getElementById('chkExclude'),
+  searchInput: document.getElementById('searchInput'),
 
   statParticipants: document.getElementById('statParticipants'),
   statTickets: document.getElementById('statTickets'),
@@ -132,9 +102,7 @@ const dom = {
   btnCloseModal: document.getElementById('btnCloseModal'),
 };
 
-/* ══════════════════════════════════════════════════════════════
-   1. CARGA DE PARTICIPANTES (Google Sheets)
-══════════════════════════════════════════════════════════════ */
+/* 1. CARGA DE PARTICIPANTES */
 
 async function loadParticipants() {
   showLoading();
@@ -161,11 +129,7 @@ async function loadParticipants() {
   }
 }
 
-/**
- * Normaliza y valida el JSON recibido del Apps Script.
- * Acepta tanto un array plano como { participants: [...] }.
- * Campos esperados por fila: id, name, tickets, steamId, verified, comment.
- */
+// Normalización y validación del JSON
 function normalizeParticipants(data) {
   const list = Array.isArray(data) ? data : Array.isArray(data && data.participants) ? data.participants : null;
 
@@ -180,14 +144,12 @@ function normalizeParticipants(data) {
   const result = [];
 
   list.forEach((p, index) => {
-    const pos = `Fila #${index + 1}`;
-
     const id = p.id !== undefined && p.id !== null && p.id !== '' ? String(p.id) : `row-${index}`;
-    if (seen.has(id)) return; // ignoramos duplicados en vez de romper el sorteo completo
+    if (seen.has(id)) return;
     seen.add(id);
 
     const name = typeof p.name === 'string' && p.name.trim() !== '' ? p.name.trim() : null;
-    if (!name) return; // fila sin nombre: se omite
+    if (!name) return;
 
     const ticketsNum = Number(p.tickets);
     const tickets = Number.isFinite(ticketsNum) && ticketsNum > 0 ? Math.floor(ticketsNum) : 0;
@@ -212,20 +174,14 @@ function normalizeParticipants(data) {
   return result;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   2. ESTADÍSTICAS
-══════════════════════════════════════════════════════════════ */
+/* 2. ESTADÍSTICAS */
 
 function calculateStatistics(participants) {
   const totalTickets = participants.reduce((sum, p) => sum + p.tickets, 0);
   return { totalParticipants: participants.length, totalTickets };
 }
 
-/* ══════════════════════════════════════════════════════════════
-   3. SELECCIÓN PONDERADA
-   O(n) respecto a la cantidad de participantes, sin importar cuántos
-   tickets tenga cada uno (soporta cientos de tickets sin problema).
-══════════════════════════════════════════════════════════════ */
+/* 3. SELECCIÓN PONDERADA */
 
 function selectWinner(participants) {
   if (!participants || participants.length === 0) {
@@ -235,7 +191,6 @@ function selectWinner(participants) {
   const totalTickets = participants.reduce((sum, p) => sum + p.tickets, 0);
 
   if (totalTickets <= 0) {
-    // Nadie tiene tickets asignados: sorteo uniforme como respaldo.
     return participants[randomInt(0, participants.length - 1)];
   }
 
@@ -249,17 +204,21 @@ function selectWinner(participants) {
   return participants[participants.length - 1];
 }
 
-/* ══════════════════════════════════════════════════════════════
-   4. SECUENCIA VISUAL DE LA RULETA
-══════════════════════════════════════════════════════════════ */
+// Penalización del ganador: pierde 1 ticket y se depura la lista elegible
+function applyWinPenalty(winner) {
+  winner.tickets = Math.max(0, winner.tickets - 1);
+
+  if (winner.tickets <= 0) {
+    state.eligible = state.eligible.filter(p => p.id !== winner.id);
+  }
+}
+
+/* 4. SECUENCIA VISUAL DE LA RULETA */
 
 function buildSpinSequence(allParticipants, winner, rounds) {
   const pool = allParticipants.length > 0 ? allParticipants : [winner];
   const sequence = [];
 
-  // Con muchos participantes, evitamos generar un track gigantesco:
-  // usamos una muestra representativa por vuelta en vez de la lista
-  // completa cuando esta es muy grande.
   const perRound = Math.min(pool.length, Math.max(VISIBLE_ITEMS * 3, Math.floor(MAX_TRACK_ITEMS / (rounds + 2))));
 
   for (let r = 0; r <= rounds; r++) {
@@ -291,9 +250,7 @@ function shuffleArray(arr) {
   return arr;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   5. POSICIÓN FINAL
-══════════════════════════════════════════════════════════════ */
+/* 5. POSICIÓN FINAL */
 
 function calculateFinalPosition(winnerFinalIndex) {
   const centerOffset = Math.floor(VISIBLE_ITEMS / 2) * ITEM_HEIGHT;
@@ -301,9 +258,7 @@ function calculateFinalPosition(winnerFinalIndex) {
   return -(winnerAbsoluteTop - centerOffset);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   6. RENDER DEL TRACK
-══════════════════════════════════════════════════════════════ */
+/* 6. RENDER DEL TRACK */
 
 function renderRouletteTrack(sequence, winnerFinalIndex) {
   const fragment = document.createDocumentFragment();
@@ -331,11 +286,7 @@ function renderRouletteTrack(sequence, winnerFinalIndex) {
   dom.rouletteTrack.style.transform = `translate3d(0, ${initialY}px, 0)`;
 }
 
-/**
- * Vista previa estática de la ruleta antes del primer sorteo
- * y tras cada reinicio. Nunca deja el track vacío: si no hay
- * elegibles, cae de nuevo a la lista completa de participantes.
- */
+// Vista previa estática de la ruleta
 function renderInitialTrack() {
   const source = state.eligible.length > 0 ? state.eligible : state.participants;
   if (!source || source.length === 0) return;
@@ -367,9 +318,7 @@ function renderInitialTrack() {
   dom.rouletteTrack.style.transform = `translate3d(0, ${initialY}px, 0)`;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   7. ANIMACIÓN
-══════════════════════════════════════════════════════════════ */
+/* 7. ANIMACIÓN */
 
 function animateRoulette(finalTranslateY, duration, onComplete) {
   const currentTransform = dom.rouletteTrack.style.transform;
@@ -401,9 +350,7 @@ function highlightWinnerItem() {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   8. MODAL DE GANADOR
-══════════════════════════════════════════════════════════════ */
+/* 8. MODAL DE GANADOR */
 
 function showWinner(winner) {
   dom.winnerName.textContent = winner.name;
@@ -483,9 +430,7 @@ function flashCopyFeedback(text) {
   setTimeout(() => { dom.btnCopyText.textContent = 'Copiar ID'; }, 2200);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   9. HISTORIAL
-══════════════════════════════════════════════════════════════ */
+/* 9. HISTORIAL */
 
 function saveWinnerToHistory(winner) {
   state.history.push({
@@ -493,6 +438,7 @@ function saveWinnerToHistory(winner) {
     name: winner.name,
     steamId: winner.steamId,
     timestamp: Date.now(),
+    remainingTickets: winner.tickets,
   });
   persistHistory();
   renderHistory();
@@ -501,7 +447,7 @@ function saveWinnerToHistory(winner) {
 function persistHistory() {
   try {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(state.history));
-  } catch (_) { /* localStorage no disponible: seguimos solo en memoria */ }
+  } catch (_) { /* no-op */ }
 }
 
 function loadHistory() {
@@ -523,30 +469,50 @@ function clearHistory() {
   renderParticipantsList();
 }
 
-/* ══════════════════════════════════════════════════════════════
-   10. RENDER: LISTA DE PARTICIPANTES (acordeón)
-══════════════════════════════════════════════════════════════ */
+/* 10. RENDER: LISTA DE PARTICIPANTES (acordeón + filtro) */
 
 const VERIFIED_LABEL = { SI: 'Verificado', No: 'No verificado', Duda: 'En duda' };
 const VERIFIED_CLASS = { SI: 'participant-verified--si', No: 'participant-verified--no', Duda: 'participant-verified--duda' };
 
+// Filtro de búsqueda por nombre o Steam ID
+function matchesSearch(p, query) {
+  if (!query) return true;
+  const q = query.trim().toLowerCase();
+  if (!q) return true;
+  return (
+    p.name.toLowerCase().includes(q) ||
+    String(p.steamId || '').toLowerCase().includes(q) ||
+    String(p.id || '').toLowerCase().includes(q)
+  );
+}
+
 function renderParticipantsList() {
   const { totalTickets } = calculateStatistics(state.eligible.length > 0 ? state.eligible : state.participants);
-  const winnerIds = new Set(state.history.map(h => h.id));
-  const excludeActive = dom.chkExclude.checked;
+  const excludeActive = dom.chkExclude ? dom.chkExclude.checked : true;
 
   const fragment = document.createDocumentFragment();
+  const query = state.searchQuery;
+  const filtered = state.participants.filter(p => matchesSearch(p, query));
 
-  state.participants.forEach((p, index) => {
+  if (filtered.length === 0) {
+    const li = document.createElement('li');
+    li.className = 'participant-empty';
+    li.textContent = 'Sin resultados para tu búsqueda.';
+    dom.participantsList.innerHTML = '';
+    dom.participantsList.appendChild(li);
+    return;
+  }
+
+  filtered.forEach((p, index) => {
     const eligibleTotal = totalTickets > 0 && isEligible(p) ? ((p.tickets / totalTickets) * 100) : 0;
     const probability = eligibleTotal.toFixed(2);
-    const isWinner = winnerIds.has(p.id);
-    const isExcluded = excludeActive && isWinner;
+    const isExhausted = p.tickets <= 0;
+    const isExcluded = excludeActive && isExhausted;
     const expanded = state.expandedIds.has(p.id);
 
     const li = document.createElement('li');
     li.className = 'participant-item' +
-      (isWinner ? ' is-winner' : '') +
+      (isExhausted ? ' is-winner' : '') +
       (isExcluded ? ' is-excluded' : '') +
       (expanded ? ' is-expanded' : '');
     li.setAttribute('role', 'listitem');
@@ -587,6 +553,11 @@ function toggleParticipantDetail(id) {
   } else {
     state.expandedIds.add(id);
   }
+  renderParticipantsList();
+}
+
+function handleSearchInput(value) {
+  state.searchQuery = value;
   renderParticipantsList();
 }
 
@@ -641,9 +612,7 @@ function escapeHtml(str) {
     .replace(/'/g, '&#039;');
 }
 
-/* ══════════════════════════════════════════════════════════════
-   11. ESTADOS DE LA APP
-══════════════════════════════════════════════════════════════ */
+/* 11. ESTADOS DE LA APP */
 
 function setState(newState) {
   state.current = newState;
@@ -674,19 +643,12 @@ function setState(newState) {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   12. SORTEO PRINCIPAL
-══════════════════════════════════════════════════════════════ */
+/* 12. SORTEO PRINCIPAL */
 
 function startSpin() {
   if (state.current === AppState.SPINNING) return;
 
-  const excludeWinners = dom.chkExclude.checked;
-  const winnerIds = new Set(state.history.map(h => h.id));
-
-  const availableParticipants = excludeWinners
-    ? state.eligible.filter(p => !winnerIds.has(p.id))
-    : state.eligible;
+  const availableParticipants = state.eligible.filter(p => p.tickets > 0);
 
   if (availableParticipants.length === 0) {
     showNoParticipantsAlert();
@@ -708,7 +670,9 @@ function startSpin() {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       animateRoulette(finalTranslateY, duration, () => {
+        applyWinPenalty(winner);
         saveWinnerToHistory(winner);
+        updateStatCounters();
         renderParticipantsList();
 
         setTimeout(() => showWinner(winner), 600);
@@ -717,26 +681,19 @@ function startSpin() {
   });
 }
 
-/* ══════════════════════════════════════════════════════════════
-   13. RESET (corrige el bug de la ruleta en blanco)
-══════════════════════════════════════════════════════════════ */
+/* 13. RESET */
 
 function resetRoulette() {
   if (state.current === AppState.SPINNING) return;
 
   state.currentWinner = null;
 
-  // Detenemos cualquier animación en curso sobre el track antes de
-  // limpiarlo: si no se cancelan las Web Animations activas, la
-  // siguiente escritura de "transform" puede quedar sobrescrita por
-  // el frame final de la animación anterior y la ruleta se ve vacía.
   dom.rouletteTrack.getAnimations().forEach(anim => anim.cancel());
 
   dom.rouletteTrack.style.transition = 'none';
   dom.rouletteTrack.style.transform = 'translate3d(0, 0, 0)';
   dom.rouletteTrack.innerHTML = '';
 
-  // Repoblamos SIEMPRE con una vista previa, aunque no haya elegibles.
   renderInitialTrack();
 
   dom.resultInfo.classList.add('d-none');
@@ -745,9 +702,7 @@ function resetRoulette() {
   setState(AppState.IDLE);
 }
 
-/* ══════════════════════════════════════════════════════════════
-   14. ESTADOS DE CARGA / ERROR
-══════════════════════════════════════════════════════════════ */
+/* 14. ESTADOS DE CARGA / ERROR */
 
 function showLoading() {
   dom.sorteoError.classList.add('d-none');
@@ -762,17 +717,13 @@ function showError(message) {
   dom.sorteoError.classList.remove('d-none');
 }
 
-/* ══════════════════════════════════════════════════════════════
-   15. UTILIDADES
-══════════════════════════════════════════════════════════════ */
+/* 15. UTILIDADES */
 
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   16. INICIALIZACIÓN
-══════════════════════════════════════════════════════════════ */
+/* 16. INICIALIZACIÓN */
 
 function initApp() {
   loadHistory();
@@ -787,7 +738,7 @@ function initApp() {
 
   setState(AppState.IDLE);
 
-  // ── Listeners (se registran una sola vez) ──
+  // Listeners (una sola vez)
   if (!initApp._bound) {
     initApp._bound = true;
 
@@ -803,7 +754,13 @@ function initApp() {
       resetRoulette();
     });
 
-    dom.chkExclude.addEventListener('change', renderParticipantsList);
+    if (dom.chkExclude) {
+      dom.chkExclude.addEventListener('change', renderParticipantsList);
+    }
+
+    if (dom.searchInput) {
+      dom.searchInput.addEventListener('input', (e) => handleSearchInput(e.target.value));
+    }
 
     dom.participantsList.addEventListener('click', (e) => {
       const btn = e.target.closest('[data-toggle-id]');
@@ -850,9 +807,7 @@ function initApp() {
   }
 }
 
-/* ══════════════════════════════════════════════════════════════
-   17. ENTRY POINT
-══════════════════════════════════════════════════════════════ */
+/* 17. ENTRY POINT */
 
 document.addEventListener('DOMContentLoaded', () => {
   loadParticipants();
