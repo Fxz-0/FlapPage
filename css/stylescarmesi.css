@@ -2,6 +2,146 @@
    DOTA SORTEO — styles.css
    Diseño oscuro, gaming, esports — GitHub Pages compatible
 ═══════════════════════════════════════════════════════════════ */
+/* ── GANADORES DIV ── */
+.ganadores-div {
+    color: var(--gold-50);
+    padding: 0px 50px;
+    width: 100%;
+    max-width: 800px;          /* ajustado a 800px */
+    margin: 0 auto;            /* centrado horizontal */
+    font-size: 22px;
+    line-height: 150%;
+    font-family: 'Faculty Glyphic', sans-serif;
+    font-weight: lighter;
+    letter-spacing: .5px;
+    z-index: 10;
+}
+
+/* ── PATCH ARTICLE ── */
+.patch-article {
+    background-color: var(--purple-70);
+    margin-bottom: 30px;
+    max-width: 100%;           /* ocupa todo el ancho del padre */
+    width: 100%;
+}
+
+.patch-article-title {
+    padding: 10px 16px;
+    box-shadow: 0px 0px 10px var(--purple-100),
+                inset 0px 0px 10px var(--purple-90);
+    align-items: center;
+    display: flex;
+}
+
+.patch-article-content {
+    background: linear-gradient(to right, var(--purple-gray), var(--gray-100));
+    color: var(--gold-50);
+    padding: 20px;
+}
+
+/* ── TABLA ── */
+.patch-tb, .patch-tb-f, th, td {
+    border-color: var(--gold-10);
+    border: 2px solid var(--purple-50);
+    padding: 5px 20px;
+    justify-content: center;
+    text-align: center;
+}
+
+.patch-article-table {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* ── TIPOGRAFÍA GENERAL ── */
+p, ul, li {
+    font-size: 1.25rem;
+    font-family: 'Faculty Glyphic', sans-serif;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+
+/* Tablet grande / laptop pequeño */
+@media (max-width: 900px) {
+    .ganadores-div {
+        max-width: 100%;
+        padding: 0 30px;
+        font-size: 20px;
+    }
+
+    .patch-article-title h2 {
+        font-size: 1.2rem;
+    }
+
+    p, ul, li {
+        font-size: 1.1rem;
+    }
+}
+
+/* Tablet */
+@media (max-width: 680px) {
+    .ganadores-div {
+        padding: 0 20px;
+        font-size: 18px;
+    }
+
+    .patch-article-title {
+        padding: 10px 12px;
+    }
+
+    .patch-article-title h2 {
+        font-size: 1rem;
+    }
+
+    .patch-article-content {
+        padding: 16px;
+    }
+
+    p, ul, li {
+        font-size: 1rem;
+    }
+
+    .patch-tb, .patch-tb-f, th, td {
+        padding: 5px 10px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Móvil */
+@media (max-width: 420px) {
+    .ganadores-div {
+        padding: 0 12px;
+        font-size: 16px;
+        letter-spacing: 0px;
+    }
+
+    .patch-article-title h2 {
+        font-size: 0.9rem;
+        line-height: 1.3;
+    }
+
+    .patch-article-content {
+        padding: 12px;
+    }
+
+    p, ul, li {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    ul {
+        padding-left: 18px;
+    }
+
+    .patch-id {
+        display: block;         /* ID en línea nueva en pantallas muy chicas */
+        font-size: 0.8rem;
+        opacity: 0.75;
+    }
+}
 
 /* ── Custom Properties ─────────────────────────────────────── */
 :root {
