@@ -195,7 +195,6 @@ async function loadParticipants() {
   }
 }
 
-// Normalización y validación del JSON
 function normalizeParticipants(data) {
   const list = Array.isArray(data) ? data : Array.isArray(data && data.participants) ? data.participants : null;
 
