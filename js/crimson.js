@@ -33,11 +33,8 @@ const SPIN_DURATION_MIN = 5500;
 const SPIN_DURATION_MAX = 7500;
 const HISTORY_KEY = 'sorteoCarmesiHistory';
 
-// Ritmo de los ticks de sonido durante el giro
-const TICK_MIN_INTERVAL_MS = 70;   // separación mínima entre ticks mientras va rápido (evita distorsión)
-const TICK_DECEL_ZONE_ITEMS = 12;  // últimos N ítems: un tick por cada ítem, para el efecto de frenado
-
-// Límite de nodos visuales del track
+const TICK_MIN_INTERVAL_MS = 70;
+const TICK_DECEL_ZONE_ITEMS = 12;
 const MAX_TRACK_ITEMS = 260;
 
 function getSteamUrl(participant) {
@@ -117,17 +114,14 @@ const audio = (() => {
     if (!ctx) {
       try {
         ctx = new (window.AudioContext || window.webkitAudioContext)();
-
-        // Compresor/limitador: evita que los ticks se distorsionen al
-        // sumarse/solaparse cuando suenan muy seguido.
+        
         compressor = ctx.createDynamicsCompressor();
         compressor.threshold.setValueAtTime(-28, ctx.currentTime);
         compressor.knee.setValueAtTime(12, ctx.currentTime);
         compressor.ratio.setValueAtTime(10, ctx.currentTime);
         compressor.attack.setValueAtTime(0.002, ctx.currentTime);
         compressor.release.setValueAtTime(0.12, ctx.currentTime);
-
-        // Techo general de volumen (aplica a todos los sonidos por igual).
+        
         masterGain = ctx.createGain();
         masterGain.gain.value = 0.5;
 
@@ -149,7 +143,7 @@ const audio = (() => {
     const gain = c.createGain();
 
     osc.connect(gain);
-    gain.connect(compressor); // pasa por el compresor/limitador, no directo a destination
+    gain.connect(compressor);
 
     osc.type            = type;
     osc.frequency.value = frequency;
@@ -160,12 +154,10 @@ const audio = (() => {
     osc.stop(c.currentTime + duration);
   }
 
-  /** Tick durante el giro. Volumen bajo y corto para que no sature al repetirse. */
   function tick() {
     playTone(440 + Math.random() * 200, 0.03, 0.06, 'square');
   }
 
-  /** Fanfare al revelar ganador. */
   function winner() {
     const notes = [523, 659, 784, 1047];
     notes.forEach((freq, i) => {
@@ -278,7 +270,6 @@ function selectWinner(participants) {
   return participants[participants.length - 1];
 }
 
-// Penalización del ganador: pierde 1 ticket y se depura la lista elegible
 function applyWinPenalty(winner) {
   winner.tickets = Math.max(0, winner.tickets - 1);
 
@@ -409,13 +400,7 @@ function animateRoulette(finalTranslateY, duration, onComplete) {
     ],
     { duration, easing, fill: 'forwards' }
   );
-
-  // Ticks de sonido sincronizados con el movimiento real del track:
-  // se lee la posición renderizada en cada frame. Mientras falten muchos
-  // ítems, el tick va a un ritmo fijo y acotado (TICK_MIN_INTERVAL_MS) para
-  // que no se distorsione por solaparse demasiado rápido; solo en la zona
-  // final (TICK_DECEL_ZONE_ITEMS) se dispara un tick por cada ítem, dando
-  // el efecto de frenado natural.
+  
   let lastTickIndex = Math.round(Math.abs(currentY) / ITEM_HEIGHT);
   let lastTickTime = 0;
   let rafId = requestAnimationFrame(trackTicks);
@@ -579,12 +564,11 @@ function clearHistory() {
   renderParticipantsList();
 }
 
-/* RENDER: LISTA DE PARTICIPANTES (acordeón + filtro) */
+/* RENDER: LISTA DE PARTICIPANTES */
 
 const VERIFIED_LABEL = { SI: 'Verificado', No: 'No verificado', Duda: 'En duda' };
 const VERIFIED_CLASS = { SI: 'participant-verified--si', No: 'participant-verified--no', Duda: 'participant-verified--duda' };
 
-// Filtro de búsqueda por nombre o Steam ID
 function matchesSearch(p, query) {
   if (!query) return true;
   const q = query.trim().toLowerCase();
