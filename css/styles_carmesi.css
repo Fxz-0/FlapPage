@@ -185,7 +185,6 @@ h1,h2{
     z-index: 200;
 }
 .title{
-    padding: 0px 18vw;
     position: relative;
     font-size: 60px;
     line-height: 115%;
@@ -213,6 +212,7 @@ h1,h2{
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+    margin-top: 2rem;
     font-size: 22px;
     line-height: 150%;
     font-family: 'Faculty Glyphic', sans-serif;
@@ -285,14 +285,15 @@ p{
 }
 .bone-button{
     background-color: var(--purple-70);
-    border: none;
-    color: var(--gold-100);
+    color: var(--gold-50);
     padding: 10px 24px;
-    margin-top: 20px;
-    margin-left: 10px;
-    border-radius: 8px;
     font-family: 'Faculty Glyphic', sans-serif;
     font-size: 1rem;
+    align-content: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: 2rem;
+    text-decoration: none;
     letter-spacing: .5px;
     text-transform: uppercase;
     cursor: pointer;
@@ -312,6 +313,11 @@ p{
     margin-top: 15px;
     font-size: 1.1rem;
     color: var(--gold-100);
+}
+
+.list-participantes{
+  align-items: center;
+  display: flex;
 }
 
 /* ════════════════════════════════════════════════════════════
