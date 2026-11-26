@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Requisitos - Sistema de Gestión</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #e0e0e0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #ffffff 0%, #c9b896 50%, #8a8a8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-size: 0.85em;
+            color: #c9b896;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        select, input {
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #c9b896;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #ffffff;
+            box-shadow: 0 0 10px rgba(201, 184, 150, 0.3);
+        }
+
+        select option {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        thead {
+            background: linear-gradient(135deg, #000000 0%, #2d2d2d 100%);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        th {
+            padding: 15px 12px;
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85em;
+            border-bottom: 2px solid #c9b896;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(201, 184, 150, 0.2);
+        }
+
+        tbody tr:hover {
+            background: rgba(201, 184, 150, 0.1);
+            transform: scale(1.01);
+        }
+
+        td {
+            padding: 15px 12px;
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #e0e0e0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-funcional {
+            background: rgba(201, 184, 150, 0.2);
+            color: #c9b896;
+            border: 1px solid #c9b896;
+        }
+
+        .badge-no-funcional {
+            background: rgba(138, 138, 138, 0.2);
+            color: #8a8a8a;
+            border: 1px solid #8a8a8a;
+        }
+
+        .badge-alta {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border: 1px solid #ffffff;
+        }
+
+        .badge-media {
+            background: rgba(201, 184, 150, 0.2);
+            color: #c9b896;
+            border: 1px solid #c9b896;
+        }
+
+        .badge-completa {
+            background: rgba(201, 184, 150, 0.3);
+            color: #c9b896;
+            border: 1px solid #c9b896;
+        }
+
+        .badge-incompleta {
+            background: rgba(138, 138, 138, 0.3);
+            color: #8a8a8a;
+            border: 1px solid #8a8a8a;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #c9b896;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(201, 184, 150, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #c9b896;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #8a8a8a;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.8em;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .barcode {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75em;
+            color: #8a8a8a;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sistema de Gestión - Requisitos</h1>        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="filterTipo">Tipo</label>
+                <select id="filterTipo">
+                    <option value="">Todos</option>
+                    <option value="Funcional">Funcional</option>
+                    <option value="No funcional">No funcional</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterPrioridad">Prioridad</label>
+                <select id="filterPrioridad">
+                    <option value="">Todas</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Media">Media</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filterTrazabilidad">Trazabilidad</label>
+                <select id="filterTrazabilidad">
+                    <option value="">Todas</option>
+                    <option value="Completa">Completa</option>
+                    <option value="Incompleta">Incompleta</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="searchText">Buscar</label>
+                <input type="text" id="searchText" placeholder="Buscar en requisitos...">
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="reqTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Requisito Revisado</th>
+                        <th>Necesidad u Objetivo</th>
+                        <th>Funcionalidad / Caso de Uso</th>
+                        <th>Caso de Prueba</th>
+                        <th>Criterio Esperado</th>
+                        <th>Prioridad</th>
+                        <th>Trazabilidad</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            {
+                id: "RF01",
+                tipo: "Funcional",
+                requisito: "El sistema deberá permitir registrar, consultar y actualizar pedidos mediante la API REST, validando los datos obligatorios y la información del cliente.",
+                necesidad: "Centralizar y mantener actualizada la información de los pedidos.",
+                funcionalidad: "CU01 – Gestionar pedidos.",
+                casoPrueba: "Registrar un pedido con datos completos y otro con información obligatoria faltante.",
+                criterio: "El pedido válido se registra y el incompleto es rechazado indicando los campos faltantes.",
+                prioridad: "Alta",
+                trazabilidad: "Completa"
+            },
+            {
+                id: "RF02",
+                tipo: "Funcional",
+                requisito: "El sistema deberá permitir generar planes de carga por camión, relacionando los pedidos con los productos disponibles y verificando que no se exceda la capacidad del vehículo.",
+                necesidad: "Generar planes de carga considerando la capacidad de los vehículos.",
+                funcionalidad: "CU02 – Generar plan de carga.",
+                casoPrueba: "Generar un plan de carga dentro y fuera de la capacidad del camión.",
+                criterio: "Se permite confirmar el plan válido y se bloquea el que supera la capacidad.",
+                prioridad: "Alta",
+                trazabilidad: "Completa"
+            },
+            {
+                id: "RF03",
+                tipo: "Funcional",
+                requisito: "El sistema deberá permitir a los operarios validar desde dispositivos móviles los paquetes correspondientes a una carga, registrando el resultado de cada validación.",
+                necesidad: "Validar los paquetes durante la carga mediante dispositivos móviles.",
+                funcionalidad: "CU03 – Validar paquetes.",
+                casoPrueba: "Validar paquetes desde un dispositivo móvil con resultados correctos y con observaciones.",
+                criterio: "Cada validación registra identificación, fecha, usuario y resultado correspondiente.",
+                prioridad: "Alta",
+                trazabilidad: "Completa"
+            },
+            {
+                id: "RF04",
+                tipo: "Funcional",
+                requisito: "El sistema deberá permitir registrar y consultar el número de sello o precinto de cada camión, relacionándolo con el plan de carga y la guía de remisión correspondiente.",
+                necesidad: "Relacionar los paquetes, camión, sello y documentación de transporte.",
+                funcionalidad: "CU04 – Registrar precintos.",
+                casoPrueba: "Registrar y consultar el precinto de un camión asociado a un plan de carga.",
+                criterio: "El sistema relaciona correctamente el precinto con el plan y la guía de remisión, e impide confirmar el despacho sin precinto.",
+                prioridad: "Alta",
+                trazabilidad: "Completa"
+            },
+            {
+                id: "RF05",
+                tipo: "Funcional",
+                requisito: "El sistema deberá proporcionar información para un dashboard que permita consultar el estado de los pedidos, cargas y despachos, así como indicadores operativos.",
+                necesidad: "Consultar el estado de pedidos y despachos mediante información centralizada.",
+                funcionalidad: "CU05 – Consultar dashboard.",
+                casoPrueba: "Consultar el dashboard con pedidos pendientes, cargas completadas y despachos realizados.",
+                criterio: "El dashboard muestra los estados e indicadores correspondientes a los registros existentes.",
+                prioridad: "Media",
+                trazabilidad: "Completa"
+            },
+            {
+                id: "RNF01",
+                tipo: "No funcional",
+                requisito: "El sistema deberá utilizar HTTPS, autenticación mediante tokens JWT u OAuth2, control de acceso basado en roles y consultas parametrizadas en el servidor para proteger la información.",
+                necesidad: "Controlar el acceso a la información según las funciones de cada usuario.",
+                funcionalidad: "Seguridad transversal del sistema.",
+                casoPrueba: "Ejecutar pruebas de autenticación, permisos por roles y comunicación HTTPS.",
+                criterio: "La comunicación utiliza HTTPS, los usuarios se autentican mediante JWT y las operaciones restringidas son rechazadas.",
+                prioridad: "Alta",
+                trazabilidad: "Completa"
+            },
+            {
+                id: "RNF02",
+                tipo: "No funcional",
+                requisito: "La aplicación móvil deberá permitir almacenar temporalmente las validaciones realizadas sin conexión y sincronizarlas con la API al recuperar conectividad, evitando duplicidades y pérdida de registros.",
+                necesidad: "Mantener un historial de operaciones y permitir la continuidad del trabajo sin conexión.",
+                funcionalidad: "Sincronización de validaciones móviles.",
+                casoPrueba: "Realizar validaciones sin internet y recuperar posteriormente la conexión.",
+                criterio: "Las validaciones se sincronizan automáticamente sin generar registros duplicados.",
+                prioridad: "Alta",
+                trazabilidad: "Completa"
+            },
+            {
+                id: "RNF03",
+                tipo: "No funcional",
+                requisito: "El sistema deberá responder a las solicitudes de validación de paquetes en menos de 500 ms en el percentil 95, bajo condiciones de carga y red previamente definidas.",
+                necesidad: "Garantizar un tiempo de respuesta adecuado durante las validaciones.",
+                funcionalidad: "Rendimiento de CU03 – Validar paquetes.",
+                casoPrueba: "Ejecutar pruebas de rendimiento con 50 usuarios concurrentes.",
+                criterio: "Al menos el 95 % de las solicitudes responde en menos de 500 ms.",
+                prioridad: "Media",
+                trazabilidad: "Incompleta"
+            }
+        ];
+
+        let filteredData = [...data];
+
+        function renderTable(dataToRender) {
+            const tbody = document.getElementById('tableBody');
+            
+            if (dataToRender.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="9" class="no-results">No se encontraron resultados</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = dataToRender.map(row => `
+                <tr>
+                    <td><strong>${row.id}</strong></td>
+                    <td><span class="badge badge-${row.tipo === 'Funcional' ? 'funcional' : 'no-funcional'}">${row.tipo}</span></td>
+                    <td>${row.requisito}</td>
+                    <td>${row.necesidad}</td>
+                    <td><strong>${row.funcionalidad}</strong></td>
+                    <td>${row.casoPrueba}</td>
+                    <td>${row.criterio}</td>
+                    <td><span class="badge badge-${row.prioridad.toLowerCase()}">${row.prioridad}</span></td>
+                    <td><span class="badge badge-${row.trazabilidad.toLowerCase()}">${row.trazabilidad}</span></td>
+                </tr>
+            `).join('');
+        }
+
+        function updateStats() {
+            const total = filteredData.length;
+            const funcional = filteredData.filter(r => r.tipo === 'Funcional').length;
+            const noFuncional = filteredData.filter(r => r.tipo === 'No funcional').length;
+            const alta = filteredData.filter(r => r.prioridad === 'Alta').length;
+
+            document.getElementById('totalReqs').textContent = total;
+            document.getElementById('funcReqs').textContent = funcional;
+            document.getElementById('noFuncReqs').textContent = noFuncional;
+            document.getElementById('altaReqs').textContent = alta;
+        }
+
+        function applyFilters() {
+            const tipoFilter = document.getElementById('filterTipo').value;
+            const prioridadFilter = document.getElementById('filterPrioridad').value;
+            const trazabilidadFilter = document.getElementById('filterTrazabilidad').value;
+            const searchText = document.getElementById('searchText').value.toLowerCase();
+
+            filteredData = data.filter(row => {
+                const matchTipo = !tipoFilter || row.tipo === tipoFilter;
+                const matchPrioridad = !prioridadFilter || row.prioridad === prioridadFilter;
+                const matchTrazabilidad = !trazabilidadFilter || row.trazabilidad === trazabilidadFilter;
+                const matchSearch = !searchText || 
+                    row.id.toLowerCase().includes(searchText) ||
+                    row.requisito.toLowerCase().includes(searchText) ||
+                    row.necesidad.toLowerCase().includes(searchText) ||
+                    row.funcionalidad.toLowerCase().includes(searchText);
+
+                return matchTipo && matchPrioridad && matchTrazabilidad && matchSearch;
+            });
+
+            renderTable(filteredData);
+            updateStats();
+        }
+
+        // Event listeners
+        document.getElementById('filterTipo').addEventListener('change', applyFilters);
+        document.getElementById('filterPrioridad').addEventListener('change', applyFilters);
+        document.getElementById('filterTrazabilidad').addEventListener('change', applyFilters);
+        document.getElementById('searchText').addEventListener('input', applyFilters);
+
+        // Initial render
+        renderTable(data);
+        updateStats();
+    </script>
+</body>
+</html>
